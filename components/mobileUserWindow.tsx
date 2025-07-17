@@ -60,17 +60,20 @@ export default function MobileUserWindow(props: TProps) {
             }}
             onClick={close}
           />
-          <span
-            className='mobile-nav-link'
-            style={{
-              textAlign: 'center',
-              borderBottom: 'none',
-              fontSize: '24px',
-              fontWeight: 700
-            }}
-          >
-            {user?.fullName}
-          </span>
+          {
+            user &&
+            <span
+              className='mobile-nav-link'
+              style={{
+                textAlign: 'center',
+                borderBottom: 'none',
+                fontSize: '24px',
+                fontWeight: 700
+              }}
+            >
+              {user.fullName}
+            </span>
+          }
           {
             navbar.map((item, index) => (
               <Link
@@ -111,9 +114,16 @@ export default function MobileUserWindow(props: TProps) {
               Форум
             </span>
           }
-          <span className='mobile-nav-link'>
-            Выйти
-          </span>
+          {
+            user ?
+              <span className='mobile-nav-link'>
+                Выйти
+              </span>
+              :
+              <span className='mobile-nav-link'>
+                Вход
+              </span>
+          }
         </Box>
       </Slide >
     </Modal>
