@@ -13,21 +13,21 @@ import { Rating } from 'react-simple-star-rating'
 // import { createComment, getComments } from '../api'
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  maxWidth: '90%',
-  bgcolor: 'white',
-  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-  borderRadius: '10px',
-  p: 2,
-  display: "flex",
-  flexDirection: 'column',
-  alignItems: 'center',
-  border: 'none',
-  outline: 'none'
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    maxWidth: '95%',
+    bgcolor: 'white',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+    borderRadius: '10px',
+    p: 1,
+    display: "flex",
+    flexDirection: 'column',
+    alignItems: 'center',
+    border: 'none',
+    outline: 'none'
 };
 
 
@@ -79,30 +79,30 @@ export default function CreateComment(props: TProps) {
     //     }
     // }
 
-    return(
+    return (
         <Modal
             open={showCreateComment}
         >
-            <Box sx = {style}>
-                <IoMdClose 
+            <Box sx={style}>
+                <IoMdClose
                     className='close-modal-icon'
                     onClick={close}
                 />
                 <h3 className='modal-header'>Поделитесь мнением</h3>
-                <form 
-                    className='modal-form' 
-                    style={{alignItems: 'center'}} 
-                    // onSubmit={handleSubmit}
+                <form
+                    className='modal-form'
+                    style={{ alignItems: 'center' }}
+                // onSubmit={handleSubmit}
                 >
                     <Rating onClick={handleRating} />
-                    <textarea 
+                    <textarea
                         value={comment}
                         onChange={e => setComment(e.target.value)}
                         className='modal-input modal-textarea'
                         placeholder='Оставьте свой комментарий'
                         required={true}
                     />
-                    <input type='submit' className='modal-button' value = 'Сохранить'/>
+                    <input type='submit' className='modal-button' value='Сохранить' />
                 </form>
             </Box>
         </Modal>
