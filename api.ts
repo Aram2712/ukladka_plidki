@@ -1,7 +1,7 @@
 
 import axios from "axios";
 import { baseUrl } from "./constants";
-import type { TUser } from "./types";
+// import type { TUser } from "./types";
 
 
 const axiosMainUrl = axios.create({

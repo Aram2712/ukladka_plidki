@@ -6,10 +6,10 @@ import { IoMdClose } from "react-icons/io";
 import { useState } from 'react';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css';
-import { signup } from '../api';
-import useSWRMutation from 'swr/mutation';
-import { TUser } from '@/types';
-import { baseUrl } from '@/constants';
+// import { signup } from '../api';
+// import useSWRMutation from 'swr/mutation';
+// import { TUser } from '@/types';
+// import { baseUrl } from '@/constants';
 
 const style = {
   position: 'absolute',
@@ -50,30 +50,30 @@ export default function SignUp(props: TProps) {
         setShowSignup(false);
     }
 
-    const { trigger, isMutating, error } = useSWRMutation(
-        `${baseUrl}/auth/signup`,
-        async (url, { arg }: { arg: TUser }) => signup(url, arg)
-    );
+    // const { trigger, isMutating, error } = useSWRMutation(
+    //     `${baseUrl}/auth/signup`,
+    //     async (url, { arg }: { arg: TUser }) => signup(url, arg)
+    // );
 
 
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const data = {
-            fullName,
-            phoneNumber,
-            password,
-            role:'user'
-        }
-        try {
-            const result = await trigger(data);
-            setShowSignin(true);
-            close()
-        } 
-        catch (err) {
-            console.error('Ошибка при добавлении:', err);
-        }
-    }
+    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     const data = {
+    //         fullName,
+    //         phoneNumber,
+    //         password,
+    //         role:'user'
+    //     }
+    //     try {
+    //         const result = await trigger(data);
+    //         setShowSignin(true);
+    //         close()
+    //     } 
+    //     catch (err) {
+    //         console.error('Ошибка при добавлении:', err);
+    //     }
+    // }
 
     return(
         <Modal
@@ -85,7 +85,10 @@ export default function SignUp(props: TProps) {
                     onClick={close}
                 />
                 <h3 className='modal-header'>Создать аккаунт</h3>
-                <form className='modal-form' onSubmit={handleSubmit}>
+                <form 
+                    className='modal-form' 
+                    // onSubmit={handleSubmit}
+                >
                     <span className='modal-label-text'>Номер телефона</span>
                     <PhoneInput
                         inputClass='modal-input'

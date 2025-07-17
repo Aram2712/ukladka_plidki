@@ -1,7 +1,7 @@
 
 'use client'
 import { createContext, useContext, useState, ReactNode } from 'react';
-import type { TComment, TNavbar, TOrder, TService, TUser } from '../types';
+import type { TComment, TNavbar, TOrder, TService, TUser, TForum } from '../types';
 
 type ContextType = {
     navbar: Array<TNavbar>,
@@ -19,7 +19,9 @@ type ContextType = {
     orders: TOrder[],
     setOrders: (orders: TOrder[]) => void,
     messages: Array<any>,
-    setMessages: (messages: any[]) => void
+    setMessages: (messages: any[]) => void,
+    forumData: TForum[], 
+    setForumData: (data: TForum[]) => void
 
 };
 
@@ -68,21 +70,21 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
         {
             id: 2,
             fullName: 'Игорь Крутой',
-            phoneNumber: '+72222222222',
+            phoneNumber: '72222222222',
             password: '2222',
             role: 'user'
         },
         {
             id: 1,
             fullName: 'Гор Мкртчян',
-            phoneNumber: '+71111111111',
-            password: '2222',
+            phoneNumber: '71111111111',
+            password: '1111',
             role: 'admin'
         },
         {
             id: 3,
             fullName: 'Наталья Сергеева',
-            phoneNumber: '+73333333333',
+            phoneNumber: '73333333333',
             password: '3333',
             role: 'user'
         }
@@ -203,6 +205,29 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
         },
     ])
 
+    const [forumData, setForumData] = useState<TForum[]>([
+        {
+            id: 1,
+            userName: 'Игорь Смирнов',
+            message: 'Добрый день! Планирую ремонт в ванной, хочу заменить плитку и сантехнику. Кто-нибудь может порекомендовать хорошего мастера?'
+        },
+        {
+            id: 2,
+            userName: 'Анна Кузнецова',
+            message: 'Привет, Игорь! Мы недавно делали ремонт, нам помог Гор – очень аккуратный и пунктуальный. Работает быстро, качество отличное. Если надо, могу скинуть контакты'
+        },
+        {
+            id: 3,
+            userName: 'Сергей Лебедев',
+            message: 'Подтверждаю, Гор – профессионал. Делал у меня душевую кабину и укладку плитки. Цены разумные, работает чисто.'
+        },
+        {
+            id: 4,
+            userName: 'Игорь Смирнов',
+            message: 'Спасибо, Анна и Сергей! Буду благодарен за контакты. Можно в личку или сюда.'
+        }
+    ])
+
     return (
         <GlobalContext.Provider 
             value = {{ 
@@ -216,7 +241,8 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
                 services, setServices,
                 comments, setComments,
                 orders, setOrders,
-                messages, setMessages
+                messages, setMessages,
+                forumData, setForumData
             }}
         >
         {children}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import '../../styles/services.css'
 import type { TService } from '@/types';
 import { Swiper, SwiperSlide } from 'swiper/react';

@@ -1,11 +1,11 @@
 
 import '../../styles/admin.css';
 import { AiFillDelete } from "react-icons/ai";
-import { getAllUsers } from '../../api';
-import { baseUrl } from '@/constants';
-import useSWR from 'swr';
+// import { getAllUsers } from '../../api';
+// import { baseUrl } from '@/constants';
+// import useSWR from 'swr';
 import { TUser } from '@/types';
-import { deleteUser } from '../../api';
+// import { deleteUser } from '../../api';
 import { useGlobalContext } from '@/context/globalContext';
 
 function AdminClients() {

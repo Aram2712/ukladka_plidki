@@ -8,7 +8,7 @@ import { useEffect, useState, useRef } from 'react';
 import type { TUser } from '../../types';
 import { RiSendPlaneFill } from "react-icons/ri";
 import { useGlobalContext } from '@/context/globalContext';
-import { useSocket } from '../../hooks/useSocket';
+// import { useSocket } from '../../hooks/useSocket';
 
 const style = {
   position: 'fixed',

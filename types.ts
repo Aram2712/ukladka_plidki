@@ -41,3 +41,9 @@ export type TService = {
     price: string;
     imagesPaths: string;
 }
+
+export type TForum = {
+    id: number,
+    userName: string,
+    message: string
+}

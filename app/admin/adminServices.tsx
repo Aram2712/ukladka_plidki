@@ -2,13 +2,13 @@
 import '../../styles/admin.css';
 import { AiFillDelete } from "react-icons/ai";
 import { useState } from 'react';
-import { getServices } from '../../api';
-import { baseUrl } from '@/constants';
+// import { getServices } from '../../api';
+// import { baseUrl } from '@/constants';
 import type { TService } from '@/types';
 import ConcretService from '../../components/cuncretService'
 import AddService from '../../components/addService' ;
-import useSWR from 'swr';
-import { deleteService } from '../../api';
+// import useSWR from 'swr';
+// import { deleteService } from '../../api';
 import { useGlobalContext } from '@/context/globalContext';
 
 function AdminServices() {

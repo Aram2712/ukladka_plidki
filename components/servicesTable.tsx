@@ -3,10 +3,11 @@ import '../styles/services.css';
 import { IoCall } from "react-icons/io5";
 import { BsWhatsapp } from "react-icons/bs"
 import type { TService } from '../types';
-import { baseUrl } from '@/constants';
-import { getServices } from '../api';
+// import { baseUrl } from '@/constants';
+// import { getServices } from '../api';
+// import useSWR from 'swr';
 import { useGlobalContext } from '@/context/globalContext';
-import useSWR from 'swr';
+
 
 export default function ServicesTable() {
 

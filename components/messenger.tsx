@@ -4,9 +4,9 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { IoMdClose } from "react-icons/io";
 import { useEffect, useState, useRef } from 'react';
-import type { TMessage } from '../types';
+// import type { TMessage } from '../types';
 import { RiSendPlaneFill } from "react-icons/ri";
-import { useSocket } from '../hooks/useSocket';
+// import { useSocket } from '../hooks/useSocket';
 import { useGlobalContext } from '@/context/globalContext';
 
 const style = {
@@ -36,10 +36,13 @@ type TProps = {
 
 export default function Messenger(props: TProps) {
 
-    const { user, messages } = useGlobalContext()
+    const { 
+        // user, 
+        messages 
+    } = useGlobalContext()
     const bottomRef = useRef<HTMLDivElement>(null);
     const { showMessenger, setShowMessenger } = props;
-    const receiverId = 'admin';
+    // const receiverId = 'admin';
     
     const [msg, setMsg] = useState('')
     // const { sendMessage, messages } = useSocket(user?.id?.toString() || '', receiverId)

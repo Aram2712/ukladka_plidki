@@ -1,9 +1,9 @@
 
 import '../../styles/admin.css';
 import { AiFillDelete } from "react-icons/ai";
-import { getOrders } from '../../api';
-import useSWR from 'swr';
-import { baseUrl } from '@/constants';
+// import { getOrders } from '../../api';
+// import useSWR from 'swr';
+// import { baseUrl } from '@/constants';
 import type { TOrder } from '../../types';
 import OrderPhoto from '../../components/orderPhoto';
 import { useState } from 'react';

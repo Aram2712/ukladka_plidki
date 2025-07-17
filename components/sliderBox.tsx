@@ -8,12 +8,13 @@ import { Navigation, Pagination } from 'swiper/modules';
 import Image from "next/image";
 import Comments from './comments';
 import FooterBox from './footerBox';
-import { baseUrl, filesPath, localFilesPath } from '@/constants';
-import { getServices } from '../api';
-import type { TService } from '../types'
-import useSWR from 'swr';
+// import { baseUrl, filesPath, localFilesPath } from '@/constants';
+// import { getServices } from '../api';
+// import useSWR from 'swr';
 import Link from 'next/link';
 import { useGlobalContext } from '@/context/globalContext';
+import type { TService } from '../types'
+
 
 export default function SliderBox() {
 

@@ -4,9 +4,9 @@ import { useGlobalContext } from '@/context/globalContext';
 import CreateComment from './createComment';
 import '../styles/comments.css';
 import { Rating } from 'react-simple-star-rating'
-import useSWR from 'swr';
-import { baseUrl } from '@/constants';
-import { getComments } from '../api';
+// import useSWR from 'swr';
+// import { baseUrl } from '@/constants';
+// import { getComments } from '../api';
 import type { TComment } from "../types";
 
 export default function Comments() {

@@ -8,11 +8,11 @@ import { Navigation, Pagination } from 'swiper/modules';
 import Image from "next/image";
 import Comments from '../../components/comments';
 import FooterBox from '../../components/footerBox';
-import { baseUrl, filesPath, localFilesPath } from '@/constants';
-import { getServices } from '../../api';
-import type { TService } from '../../types'
-import useSWR from 'swr';
+// import { baseUrl, filesPath, localFilesPath } from '@/constants';
+// import { getServices } from '../../api';
+// import useSWR from 'swr';
 import { useGlobalContext } from '@/context/globalContext';
+import type { TService } from '../../types'
 
 type TProps = {
     setCurrentService: (service: TService | null) => void
