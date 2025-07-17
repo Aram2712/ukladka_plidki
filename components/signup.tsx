@@ -37,7 +37,11 @@ type TProps = {
 
 export default function SignUp(props: TProps) {
 
-    const { showSignup, setShowSignup, setShowSignin } = props;
+    const { 
+        showSignup, 
+        setShowSignup, 
+        // setShowSignin 
+    } = props;
     const [fullName, setFullName] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [phoneNumber, setPhoneNumber] = useState<string>('');

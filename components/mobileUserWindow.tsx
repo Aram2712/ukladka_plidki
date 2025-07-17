@@ -1,7 +1,7 @@
 'use client'
 import '../styles/navbar.css';
-import React, { useState } from 'react';
-import { Modal, Backdrop, Box, Slide, Button } from '@mui/material';
+import React from 'react';
+import { Modal, Backdrop, Box, Slide } from '@mui/material';
 import { IoMdClose } from "react-icons/io";
 import { useGlobalContext } from '@/context/globalContext';
 import Link from 'next/link';

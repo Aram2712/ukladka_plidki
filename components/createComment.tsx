@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 import { IoMdClose } from "react-icons/io";
 import { useState } from 'react';
 import { Rating } from 'react-simple-star-rating'
-import { useGlobalContext } from '@/context/globalContext';
+// import { useGlobalContext } from '@/context/globalContext';
 // import type { TComment } from "../types";
 // import useSWRMutation from 'swr/mutation';
 // import useSWR from 'swr';
@@ -38,11 +38,11 @@ type TProps = {
 
 export default function CreateComment(props: TProps) {
 
-    const { user } = useGlobalContext();
+    // const { user } = useGlobalContext();
     const { showCreateComment, setShowCreateComment } = props;
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState<string>('');
-
+    console.log(rating)
     const handleRating = (rate: number) => {
         setRating(rate)
     }

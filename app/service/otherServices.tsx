@@ -25,16 +25,6 @@ export default function OtherServices(props: TProps) {
     const { services } = useGlobalContext();
 
     // const { data } = useSWR(`${baseUrl}/services`, getServices);
-    
-    const media = [
-        'https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668617_w-819x1024-1.webp',
-        'https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668618_w-819x1024-1.webp',
-        'https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668618_w-819x1024-1.webp',
-        'https://ukladka-plitki.ru/wp-content/uploads/1713899046-10.mp4'
-    ]
-
-    const isString = 'https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668617_w-819x1024-1.webp,https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668618_w-819x1024-1.webp,https://ukladka-plitki.ru/wp-content/uploads/1713899046-10.mp4'
-
     function getFileType(filename: string) {
         const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
         const videoExtensions = ['mp4', 'mov', 'avi', 'mkv', 'webm'];
