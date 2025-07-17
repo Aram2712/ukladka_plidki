@@ -1,9 +1,7 @@
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ContextProvider } from '../context/globalContext';
-import Navbar from '../components/navbar';
-import "./globals.css";
+import '../../styles/admin.css';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,27 +15,17 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Укладка плитки в Санкт-Петербурге | Питерский плиточник",
-  icons: {
-    icon: '/shortcut.png',
-    shortcut: '/shortcut.png',
-  },
   description: "Плиточные работы и услуги плиточника в Санкт-Петербурге. Укладка плитки, монтаж керамогранита на пол и стены квартире, доме, коммерческом помещении.",
 };
 
-
-export default function RootLayout({
+export default function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ContextProvider>
-          <Navbar/>
-          {children}
-        </ContextProvider>
-      </body>
-    </html>
+    <div className="admin-layout-container">
+        {children}
+    </div>
   );
 }

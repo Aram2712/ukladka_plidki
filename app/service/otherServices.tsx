@@ -1,21 +1,26 @@
 'use client';
-import '../styles/sliderBox.css';
+import '../../styles/sliderBox.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import Image from "next/image";
-import Comments from './comments';
-import FooterBox from './footerBox';
+import Comments from '../../components/comments';
+import FooterBox from '../../components/footerBox';
 import { baseUrl, filesPath, localFilesPath } from '@/constants';
-import { getServices } from '../api';
-import type { TService } from '../types'
+import { getServices } from '../../api';
+import type { TService } from '../../types'
 import useSWR from 'swr';
-import Link from 'next/link';
 import { useGlobalContext } from '@/context/globalContext';
 
-export default function SliderBox() {
+type TProps = {
+    setCurrentService: (service: TService | null) => void
+}
+
+export default function OtherServices(props: TProps) {
+
+    const { setCurrentService } = props;
 
     const { services } = useGlobalContext();
 
@@ -27,6 +32,8 @@ export default function SliderBox() {
         'https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668618_w-819x1024-1.webp',
         'https://ukladka-plitki.ru/wp-content/uploads/1713899046-10.mp4'
     ]
+
+    const isString = 'https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668617_w-819x1024-1.webp,https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668618_w-819x1024-1.webp,https://ukladka-plitki.ru/wp-content/uploads/1713899046-10.mp4'
 
     function getFileType(filename: string) {
         const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
@@ -88,20 +95,21 @@ export default function SliderBox() {
                             <span>
                                 { item.title }
                             </span>
-                            <Link 
+                            <span 
                                 className='service-about-navigate-btn current-service-link' 
-                                href={`/service`}
                                 onClick={() => {
                                     localStorage.setItem('currentService', JSON.stringify(item))
+                                    setCurrentService(item);
+                                    window.scrollTo({top: 0, behavior: 'smooth'})
                                 }}
                                 style={{
                                     textDecoration:'none', 
-                                    color: 'black'
-                                    
+                                    color: 'black',
+                                    width: '120px'
                                 }}
                             >
                                 Подробнее
-                            </Link>
+                            </span>
                         
                         </div>
                     </div>

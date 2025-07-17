@@ -1,0 +1,92 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import '../../styles/services.css'
+import type { TService } from '@/types';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import Image from 'next/image';
+
+type TProps = {
+    currentService: TService | null;
+    setCurrentService: (service: TService | null) => void
+}
+
+export default function Slider(props: TProps) {
+
+    const media = [
+        'https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668617_w-819x1024-1.webp',
+        'https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668618_w-819x1024-1.webp',
+        'https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668618_w-819x1024-1.webp',
+        'https://ukladka-plitki.ru/wp-content/uploads/1713899046-10.mp4'
+    ]
+
+    const {currentService, setCurrentService} = props;
+
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('currentService') as string)
+        if (data) setCurrentService(data);
+    }, [])
+
+    function getFileType(filename: string) {
+        const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
+        const videoExtensions = ['mp4', 'mov', 'avi', 'mkv', 'webm'];
+
+        const index = filename.lastIndexOf('.');
+
+        const ext = filename.substring(index+1).toLowerCase();
+        
+        if (imageExtensions.includes(ext)) return 'image';
+        if (videoExtensions.includes(ext)) return 'video';
+
+        return 'unknown';
+    }
+
+    return (
+        currentService &&
+        <div className='service-slider-box'>
+            <h2>{currentService.title}</h2>
+            <p>{currentService.description}</p>
+            <Swiper
+                navigation={true}
+                pagination={{ clickable: true }}
+                modules={[Navigation, Pagination]}
+                className="serviceSwiper"
+            >
+                {
+                // currentService.imagesPaths.split(',').map((item: string, index: number) => (
+                media.map((item: string, index: number) => (
+                    <SwiperSlide key={index}>
+                        {getFileType(item) === 'image' ? (
+                            // <div className="relative w-[500px] h-[500px]">
+                                <Image
+                                    // src={`${filesPath}/${item.src}`}
+                                    src={item}
+                                    alt={`Slide ${index}`}
+                                    width={1000}
+                                    height={1000}
+                                    className="object-contain"
+                                    priority={index === 0}
+                                />
+                            // </div>
+                        ) : (
+                            <video
+                                // src={`${filesPath}/${item.src}`}
+                                src={item}
+                                muted
+                                autoPlay={true}
+                                controls
+                                preload="metadata"
+                                // className="w-full max-h-[500px] mx-auto"
+                            />
+                        )}
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+            
+        </div>
+    )
+}
