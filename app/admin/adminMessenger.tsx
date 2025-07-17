@@ -36,6 +36,13 @@ type TProps = {
     users: TUser[]
 }
 
+// type TMessage = {
+//     id: number
+//     receiverId: number | string
+//     senderId: number | string
+//     text: string
+// }
+
 export default function AdminMessenger(props: TProps) {
 
     const { 
@@ -46,14 +53,16 @@ export default function AdminMessenger(props: TProps) {
     const {messages, clients} = useGlobalContext();
     const bottomRef = useRef<HTMLDivElement>(null);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [concretUserMessages, setConcretUsersMessages] = useState<Array<any> | null>(null);
     const [activeUserId, setActiveuserId] = useState<string>('');
 
     const [msg, setMsg] = useState('')
     // const { sendMessage, messages } = useSocket('admin', activeUserId)
- 
+    console.log(concretUserMessages);
+    
     function splitMessagesByUser<T extends {senderId: string, receiverId:string}>(messages: T[], currentUserId: string): T[][] {
-
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const userMap: Record<string, any[]> = {};
 
         for (const msg of messages) {
