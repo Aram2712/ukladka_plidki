@@ -24,22 +24,22 @@ export default function Navbar() {
 
     useEffect(() => {
         const userData = localStorage.getItem('plidka_user');
-        if(userData) {
+        if (userData) {
             setUser(JSON.parse(userData));
         }
         else setUser(null)
     }, [])
 
-    return(
+    return (
         <div className='navbar-container'>
             <h2 className='navbar-head-text'>Питерский плиточник</h2>
             <div className='navogation-bar-container'>
                 {
                     navbar.map((item, index) => (
-                        <Link 
-                            key={index} 
-                            href={item.path} 
-                            className='nav-link' 
+                        <Link
+                            key={index}
+                            href={item.path}
+                            className='nav-link'
                         >
                             {item.title}
                         </Link>
@@ -47,23 +47,23 @@ export default function Navbar() {
                 }
                 {
                     user?.role === 'admin' &&
-                    <Link 
-                        href={'/admin'} 
-                        className='nav-link' 
+                    <Link
+                        href={'/admin'}
+                        className='nav-link'
                     >
                         Админ
                     </Link>
                 }
-            
+
                 {
-                    user ? 
-                        <div 
+                    user ?
+                        <div
                             className='user-name-letter-box'
                             onClick={() => setShowUserWindow(true)}
                         >
-                            { user.fullName[0].toUpperCase() }
+                            {user.fullName[0].toUpperCase()}
                         </div>
-                    :
+                        :
                         <span
                             className='nav-link'
                             style={{
@@ -75,47 +75,48 @@ export default function Navbar() {
                             Вход
                         </span>
                 }
-                
+
             </div>
             <div className='mobile-header-box'>
-                <SlMenu 
-                    style = {{
+                <SlMenu
+                    style={{
                         color: 'white',
                         fontSize: '30px'
                     }}
                     onClick={() => setShowMobileMenu(true)}
                 />
                 <MobileUserWindow
-                    showMobile = {showMobileMenu}
-                    setShowMobile = {setShowMobileMenu}
-                    setShowMessenger = {setShowMessenger}
-                    setShowForum = {setShowForum}
+                    showMobile={showMobileMenu}
+                    setShowMobile={setShowMobileMenu}
+                    setShowMessenger={setShowMessenger}
+                    setShowForum={setShowForum}
+                    setShowSignIn={setShowSignIn}
                 />
-            </div>       
+            </div>
             <Signin
-                showSignin = { showSignIn }
-                setShowSignin = { setShowSignIn }
+                showSignin={showSignIn}
+                setShowSignin={setShowSignIn}
                 setShowSignup={setShowSignup}
 
-            /> 
+            />
             <SignUp
-                showSignup = {showSignup}
+                showSignup={showSignup}
                 setShowSignup={setShowSignup}
                 setShowSignin={setShowSignIn}
             />
             <UserWindow
-                showUserWindow = {showUserWindow} 
-                setShowUserWindow = {setShowUserWindow}
-                setShowMessenger = {setShowMessenger}
-                setShowForum = {setShowForum}
+                showUserWindow={showUserWindow}
+                setShowUserWindow={setShowUserWindow}
+                setShowMessenger={setShowMessenger}
+                setShowForum={setShowForum}
             />
             <Messenger
-                showMessenger = {showMessenger}
-                setShowMessenger = {setShowMessenger}
+                showMessenger={showMessenger}
+                setShowMessenger={setShowMessenger}
             />
             <Forum
-                showForum = { showForum }
-                setShowForum = { setShowForum }
+                showForum={showForum}
+                setShowForum={setShowForum}
             />
         </div>
     )

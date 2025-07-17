@@ -4,6 +4,7 @@ import React from 'react';
 import { Modal, Backdrop, Box, Slide } from '@mui/material';
 import { IoMdClose } from "react-icons/io";
 import { useGlobalContext } from '@/context/globalContext';
+import { useRouter } from 'next/navigation'
 import Link from 'next/link';
 
 const style = {
@@ -28,15 +29,24 @@ type TProps = {
   setShowMobile: (show: boolean) => void
   setShowMessenger: (show: boolean) => void
   setShowForum: (show: boolean) => void
+  setShowSignIn: (show: boolean) => void
 }
 
 export default function MobileUserWindow(props: TProps) {
 
-  const { showMobile, setShowMobile, setShowMessenger, setShowForum } = props
-  const { navbar, user } = useGlobalContext();
+  const { showMobile, setShowMobile, setShowMessenger, setShowForum, setShowSignIn } = props
+  const { navbar, user, setUser } = useGlobalContext();
+  const router = useRouter();
 
   const close = () => {
     setShowMobile(false)
+  }
+
+  const logout = () => {
+    localStorage.removeItem('plidka_user');
+    setUser(null); // сброс контекста
+    router.push('/');
+    close()
   }
 
   return (
@@ -97,7 +107,7 @@ export default function MobileUserWindow(props: TProps) {
             </Link>
           }
           {
-            user?.role !== 'admin' &&
+            user && user.role !== 'admin' &&
             <span className='mobile-nav-link' onClick={() => {
               setShowMessenger(true);
               close();
@@ -116,11 +126,21 @@ export default function MobileUserWindow(props: TProps) {
           }
           {
             user ?
-              <span className='mobile-nav-link'>
+              <span className='mobile-nav-link'
+                onClick={() => {
+                  logout();
+                }}
+              >
                 Выйти
               </span>
               :
-              <span className='mobile-nav-link'>
+              <span
+                className='mobile-nav-link'
+                onClick={() => {
+                  setShowSignIn(true);
+                  close();
+                }}
+              >
                 Вход
               </span>
           }
