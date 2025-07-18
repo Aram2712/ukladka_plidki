@@ -14,6 +14,7 @@ import FooterBox from './footerBox';
 import Link from 'next/link';
 import { useGlobalContext } from '@/context/globalContext';
 import type { TService } from '../types'
+import VideoPlayer from './video';
 
 
 export default function SliderBox() {
@@ -59,39 +60,25 @@ export default function SliderBox() {
                                 // item.imagesPaths.split(',').map((item: string, index: number) => (
                                 item.imagesPaths.split(',').map((path: string, index: number) => (
                                     <SwiperSlide key={index}>
-                                        <div 
+                                        <div
                                             className='slider-item-box'
                                         >
                                             {getFileType(path) === 'image' ? (
-                                            <Image
-                                                // src={`${filesPath}/${item.src}`}
-                                                src={path}
-                                                alt={`Slide ${index}`}
-                                                width={500}
-                                                height={500}
-                                                className="slider-image-file"
-                                                priority={index === 0}
-                                            />
-                                            
-                                        ) : (
-                                            <div className="video-wrapper">
-                                                <video
+                                                <Image
                                                     // src={`${filesPath}/${item.src}`}
                                                     src={path}
-                                                    muted
-                                                    autoPlay={true}
-                                                    controls = {false}
-                                                    preload="metadata"
-                                                    playsInline
-                                                    style={{
-                                                        width: '100%',
-                                                        height: '100%',
-                                                        objectFit: 'cover',
-                                                        display: 'block',
-                                                    }}
+                                                    alt={`Slide ${index}`}
+                                                    width={500}
+                                                    height={500}
+                                                    className="slider-image-file"
+                                                    priority={index === 0}
                                                 />
-                                            </div>                                            
-                                        )}
+
+                                            ) : (
+                                                <div className="video-wrapper">
+                                                    <VideoPlayer src={path} />
+                                                </div>
+                                            )}
                                         </div>
                                     </SwiperSlide>
                                 ))

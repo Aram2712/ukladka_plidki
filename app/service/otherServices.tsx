@@ -13,6 +13,7 @@ import FooterBox from '../../components/footerBox';
 // import useSWR from 'swr';
 import { useGlobalContext } from '@/context/globalContext';
 import type { TService } from '../../types'
+import VideoPlayer from '../../components/video';
 
 type TProps = {
     setCurrentService: (service: TService | null) => void
@@ -71,7 +72,8 @@ export default function OtherServices(props: TProps) {
 
                                             ) : (
                                                 <div className="video-wrapper">
-                                                    <video
+                                                    <VideoPlayer src={path} />
+                                                    {/* <video
                                                         // src={`${filesPath}/${item.src}`}
                                                         src={path}
                                                         muted
@@ -85,7 +87,7 @@ export default function OtherServices(props: TProps) {
                                                             objectFit: 'cover',
                                                             display: 'block',
                                                         }}
-                                                    />
+                                                    /> */}
                                                 </div>
                                             )}
                                         </div>
@@ -112,7 +114,6 @@ export default function OtherServices(props: TProps) {
                             >
                                 Подробнее
                             </span>
-
                         </div>
                     </div>
                 ))

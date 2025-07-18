@@ -44,7 +44,7 @@ export default function Slider(props: TProps) {
 
         return 'unknown';
     }
-    
+
     return (
         currentService &&
         <div className='service-slider-box'>
@@ -74,25 +74,27 @@ export default function Slider(props: TProps) {
                                         priority={index === 0}
                                     />
 
-                                ) : (
-                                    <div className="video-wrapper">
-                                        <video
-                                            // src={`${filesPath}/${item.src}`}
-                                            src={path}
-                                            muted
-                                            autoPlay={true}
-                                            controls={false}
-                                            preload="metadata"
-                                            playsInline
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                                objectFit: 'cover',
-                                                display: 'block',
-                                            }}
-                                        />
-                                    </div>
-                                )}
+                                )
+                                    :
+                                    (
+                                        <div className="video-wrapper">
+                                            <video
+                                                // src={`${filesPath}/${item.src}`}
+                                                src={path}
+                                                muted
+                                                autoPlay={true}
+                                                controls={false}
+                                                preload="metadata"
+                                                playsInline
+                                                style={{
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    objectFit: 'cover',
+                                                    display: 'block',
+                                                }}
+                                            />
+                                        </div>
+                                    )}
                             </div>
                         </SwiperSlide>
                     ))
