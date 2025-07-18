@@ -24,7 +24,7 @@ export default function Slider(props: TProps) {
         'https://ukladka-plitki.ru/wp-content/uploads/1713899046-10.mp4'
     ]
 
-    const {currentService, setCurrentService} = props;
+    const { currentService, setCurrentService } = props;
 
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('currentService') as string)
@@ -37,14 +37,14 @@ export default function Slider(props: TProps) {
 
         const index = filename.lastIndexOf('.');
 
-        const ext = filename.substring(index+1).toLowerCase();
-        
+        const ext = filename.substring(index + 1).toLowerCase();
+
         if (imageExtensions.includes(ext)) return 'image';
         if (videoExtensions.includes(ext)) return 'video';
 
         return 'unknown';
     }
-
+    
     return (
         currentService &&
         <div className='service-slider-box'>
@@ -54,39 +54,50 @@ export default function Slider(props: TProps) {
                 navigation={true}
                 pagination={{ clickable: true }}
                 modules={[Navigation, Pagination]}
-                className="serviceSwiper"
+                className="mySwiper"
             >
                 {
-                // currentService.imagesPaths.split(',').map((item: string, index: number) => (
-                media.map((item: string, index: number) => (
-                    <SwiperSlide key={index}>
-                        {getFileType(item) === 'image' ? (
-                            // <div className="relative w-[500px] h-[500px]">
-                                <Image
-                                    // src={`${filesPath}/${item.src}`}
-                                    src={item}
-                                    alt={`Slide ${index}`}
-                                    width={1000}
-                                    height={1000}
-                                    className="object-contain"
-                                    priority={index === 0}
-                                />
-                            // </div>
-                        ) : (
-                            <video
-                                // src={`${filesPath}/${item.src}`}
-                                src={item}
-                                muted
-                                autoPlay={true}
-                                controls
-                                preload="metadata"
-                                // className="w-full max-h-[500px] mx-auto"
-                            />
-                        )}
-                    </SwiperSlide>
-                ))}
+                    // item.imagesPaths.split(',').map((item: string, index: number) => (
+                    media.map((path: string, index: number) => (
+                        <SwiperSlide key={index}>
+                            <div
+                                className='slider-item-box'
+                            >
+                                {getFileType(path) === 'image' ? (
+                                    <Image
+                                        // src={`${filesPath}/${item.src}`}
+                                        src={path}
+                                        alt={`Slide ${index}`}
+                                        width={500}
+                                        height={500}
+                                        className="slider-image-file"
+                                        priority={index === 0}
+                                    />
+
+                                ) : (
+                                    <div className="video-wrapper">
+                                        <video
+                                            // src={`${filesPath}/${item.src}`}
+                                            src={path}
+                                            muted
+                                            autoPlay={true}
+                                            controls={false}
+                                            preload="metadata"
+                                            playsInline
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                objectFit: 'cover',
+                                                display: 'block',
+                                            }}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </SwiperSlide>
+                    ))
+                }
             </Swiper>
-            
-        </div>
+        </div >
     )
 }

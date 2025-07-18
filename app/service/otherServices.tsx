@@ -31,8 +31,8 @@ export default function OtherServices(props: TProps) {
 
         const index = filename.lastIndexOf('.');
 
-        const ext = filename.substring(index+1).toLowerCase();
-        
+        const ext = filename.substring(index + 1).toLowerCase();
+
         if (imageExtensions.includes(ext)) return 'image';
         if (videoExtensions.includes(ext)) return 'video';
 
@@ -52,55 +52,67 @@ export default function OtherServices(props: TProps) {
                             className="mySwiper"
                         >
                             {
-                            // item.imagesPaths.split(',').map((item: string, index: number) => (
-                            item.imagesPaths.split(',').map((path: string, index: number) => (
-                                <SwiperSlide key={index}>
-                                    {getFileType(path) === 'image' ? (
-                                        <div className="relative w-[500px] h-[500px]">
-                                            <Image
-                                                // src={`${filesPath}/${item.src}`}
-                                                src={path}
-                                                alt={`Slide ${index}`}
-                                                width={500}
-                                                height={500}
-                                                className="object-contain"
-                                                priority={index === 0}
-                                            />
+                                // item.imagesPaths.split(',').map((item: string, index: number) => (
+                                item.imagesPaths.split(',').map((path: string, index: number) => (
+                                    <SwiperSlide key={index}>
+                                        <div
+                                            className='slider-item-box'
+                                        >
+                                            {getFileType(path) === 'image' ? (
+                                                <Image
+                                                    // src={`${filesPath}/${item.src}`}
+                                                    src={path}
+                                                    alt={`Slide ${index}`}
+                                                    width={500}
+                                                    height={500}
+                                                    className="slider-image-file"
+                                                    priority={index === 0}
+                                                />
+
+                                            ) : (
+                                                <div className="video-wrapper">
+                                                    <video
+                                                        // src={`${filesPath}/${item.src}`}
+                                                        src={path}
+                                                        muted
+                                                        autoPlay={true}
+                                                        controls={false}
+                                                        preload="metadata"
+                                                        playsInline
+                                                        style={{
+                                                            width: '100%',
+                                                            height: '100%',
+                                                            objectFit: 'cover',
+                                                            display: 'block',
+                                                        }}
+                                                    />
+                                                </div>
+                                            )}
                                         </div>
-                                    ) : (
-                                        <video
-                                            // src={`${filesPath}/${item.src}`}
-                                            src={path}
-                                            muted
-                                            autoPlay={true}
-                                            controls
-                                            preload="metadata"
-                                            className="w-full max-h-[500px] mx-auto"
-                                        />
-                                    )}
-                                </SwiperSlide>
-                            ))}
+                                    </SwiperSlide>
+                                ))
+                            }
                         </Swiper>
                         <div className='service-item-description-button-box'>
                             <span>
-                                { item.title }
+                                {item.title}
                             </span>
-                            <span 
-                                className='service-about-navigate-btn current-service-link' 
+                            <span
+                                className='service-about-navigate-btn current-service-link'
                                 onClick={() => {
                                     localStorage.setItem('currentService', JSON.stringify(item))
                                     setCurrentService(item);
-                                    window.scrollTo({top: 0, behavior: 'smooth'})
+                                    window.scrollTo({ top: 0, behavior: 'smooth' })
                                 }}
                                 style={{
-                                    textDecoration:'none', 
+                                    textDecoration: 'none',
                                     color: 'black',
                                     width: '120px'
                                 }}
                             >
                                 Подробнее
                             </span>
-                        
+
                         </div>
                     </div>
                 ))
@@ -112,8 +124,8 @@ export default function OtherServices(props: TProps) {
                     Посмотреть еще
                 </button>
             </div> */}
-            <Comments/>
-            <FooterBox/>
+            <Comments />
+            <FooterBox />
         </div>
     )
 }

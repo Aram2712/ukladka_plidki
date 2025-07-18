@@ -128,12 +128,12 @@
 }
 
 .service-slider-box {
-    width: 100%;
+    width: 80%;
+    aspect-ratio: 3/2;
     margin-top: 100px;
     display: flex;
     flex-direction: column;
     padding: 20px 150px;
-    /* border: 1px solid white; */
 }
 
 .service-slider-box>h2 {
@@ -146,7 +146,7 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 18px;
     color: #fff;
-    margin-top: 30px;
+    margin: 30px 0;
 }
 
 .concret-service-item-container {
@@ -194,8 +194,14 @@
 
 
 @media screen and (max-width:567px) {
-    .services-layout-container, .service-layout-container {
+    .services-layout-container {
         padding: 0 15px;
+    }
+    .service-layout-container {
+        padding: 0 5px;
+    }
+    .service-slider-box {
+        width: 98%
     }
     .service-slider-box {
         padding: 20px 0;
