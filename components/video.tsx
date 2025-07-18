@@ -48,7 +48,7 @@ const VideoPlayer = ({ src }: TProps) => {
             src={src}
             muted
             autoPlay={true}
-            controls={false}
+            controls={true}
             preload="metadata"
             playsInline
             style={{
