@@ -180,6 +180,17 @@
     margin: 30px 0 0 0
 }
 
+.zoom-icon {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
 @media screen and (max-width:1200px) {
     .services-header-container>h2 {
         font-size: 2rem;
@@ -198,7 +209,7 @@
         padding: 0 15px;
     }
     .service-layout-container {
-        padding: 0 5px;
+        padding: 0 2px;
     }
     .service-slider-box {
         width: 98%

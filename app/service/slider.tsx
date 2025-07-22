@@ -1,14 +1,17 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import '../../styles/services.css'
 import type { TService } from '@/types';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Zoom } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Image from 'next/image';
+import BigSlider from '../../components/bigSlider';
+import { FaSearchPlus } from 'react-icons/fa'
+
 
 type TProps = {
     currentService: TService | null;
@@ -25,6 +28,8 @@ export default function Slider(props: TProps) {
     ]
 
     const { currentService, setCurrentService } = props;
+
+    const [selectedGallery, setSelectedGallery] = useState<string[] | null>(null);
 
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem('currentService') as string)
@@ -48,20 +53,36 @@ export default function Slider(props: TProps) {
     return (
         currentService &&
         <div className='service-slider-box'>
+            <BigSlider
+                selectedGallery = {selectedGallery}
+                setSelectedGallery = {setSelectedGallery}
+            />
             <h2>{currentService.title}</h2>
             <p>{currentService.description}</p>
+            
             <Swiper
                 navigation={true}
                 pagination={{ clickable: true }}
                 modules={[Navigation, Pagination]}
                 className="mySwiper"
-            >
+            >           
+                <FaSearchPlus
+                    className='zoom-icon'
+                    fontSize={60}
+                    style={{
+                        padding: '10px',
+                        color: 'white'
+                    }}
+                />
                 {
                     // item.imagesPaths.split(',').map((item: string, index: number) => (
                     media.map((path: string, index: number) => (
                         <SwiperSlide key={index}>
                             <div
                                 className='slider-item-box'
+                                style={{
+                                    position:'relative'
+                                }}
                             >
                                 {getFileType(path) === 'image' ? (
                                     <Image
