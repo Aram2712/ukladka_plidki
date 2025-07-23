@@ -57,8 +57,6 @@ const VideoPlayer = ({ src }: TProps) => {
                 height: '100%',
                 objectFit: 'cover',
                 display: 'block',
-                // userSelect: 'none',
-                // pointerEvents: 'auto',
             }}
         />
     );

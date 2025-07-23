@@ -1,12 +1,10 @@
-
 import React from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
-import { IconButton, Box } from '@mui/material';
-import { Swiper as SwiperType } from 'swiper/types';
-import VideoPlayer from './video';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
+import { IconButton, Box } from '@mui/material';
 import Image from 'next/image';
+import { Swiper as SwiperType } from 'swiper/types';
 
 type Props = {
     src: string;
@@ -20,7 +18,7 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
         <Box
             position="relative"
             width="100%"
-            height="100dvh"
+            height="100vh"
             overflow="hidden"
         >
             <TransformWrapper
@@ -32,12 +30,12 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
             >
                 {({ zoomIn, zoomOut }) => (
                     <>
-                        <Box position="absolute" top={0} left={0} zIndex={1000}>
+                        <Box position="absolute" top={0} left={0} zIndex={10}>
                             <IconButton
                                 onClick={() => {
                                     if (ref.current) {
-                                        // ref.current.allowTouchMove = true;
-                                        // ref.current.update();
+                                        ref.current.allowTouchMove = true;
+                                        ref.current.update();
                                         zoomOut(1)
                                     }
                                 }}
@@ -45,16 +43,15 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
                                 <ZoomOutIcon
                                     style={{
                                         color: 'white',
-                                        fontSize: '32px',
-                                        // WebkitTapHighlightColor: 'transparent',
+                                        fontSize: '32px'
                                     }}
                                 />
                             </IconButton>
                             <IconButton
                                 onClick={() => {
                                     if (ref.current) {
-                                        // ref.current.allowTouchMove = false;
-                                        // ref.current.update()
+                                        ref.current.allowTouchMove = false;
+                                        ref.current.update()
                                         zoomIn();
                                     }
                                 }}
@@ -62,8 +59,7 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
                                 <ZoomInIcon
                                     style={{
                                         color: 'white',
-                                        fontSize: '32px',
-                                        // WebkitTapHighlightColor: 'transparent',
+                                        fontSize: '32px'
                                     }}
                                 />
                             </IconButton>
@@ -73,7 +69,6 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
                                 width: '100%',
                                 height: '100%',
                                 cursor: 'grab',
-                                // touchAction: 'none',
                             }}
                             contentStyle={{
                                 width: '100%',
@@ -81,8 +76,6 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                // WebkitUserSelect: 'none',
-                                // userSelect: 'none',
                             }}
                         >
                             {type === 'image' ? (
@@ -97,11 +90,22 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
                                         pointerEvents: 'auto',
                                         userSelect: 'none',
                                     }}
+
                                     draggable={false}
                                 />
                             ) : (
-                                <VideoPlayer
+                                <video
                                     src={src}
+                                    controls={true}
+                                    autoPlay
+                                    muted
+                                    playsInline
+                                    className="modal-media"
+                                    style={{
+                                        userSelect: 'none',
+                                        pointerEvents: 'auto',
+                                    }}
+                                    draggable={false}
                                 />
                             )}
                         </TransformComponent>
