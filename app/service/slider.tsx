@@ -106,7 +106,7 @@ export default function Slider(props: TProps) {
                                                     display: 'block',
                                                 }}
                                                 onClick={() => setSelectedGallery(media)}
-                                                onTouchStart={() => setSelectedGallery(media)}
+                                        
                                             />
                                         </div>
                                     )}
