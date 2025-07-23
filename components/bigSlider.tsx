@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper as SwiperType } from 'swiper/types';
 import { Navigation, Pagination } from 'swiper/modules';
-import Image from "next/image";
+import { ZoomableSlide } from './zoomable';
 import '../styles/bigSlider.css'
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -21,6 +22,8 @@ type TProps = {
 export default function BigSlider(props: TProps) {
 
     const { selectedGallery, setSelectedGallery } = props;
+    
+    const swiperRef = useRef<SwiperType | null>(null);
 
     useEffect(() => {
         if (selectedGallery) {
@@ -39,18 +42,28 @@ export default function BigSlider(props: TProps) {
         <div className="modal-overlay">
             <div className="modal-content">
                 <button className="modal-close" onClick={() => { setSelectedGallery(null) }}>&times;</button>
-                <Swiper navigation pagination={{ clickable: true }} modules={[Navigation, Pagination]}>
+                <Swiper
+                    navigation
+                    pagination={{ clickable: true }}
+                    modules={[Navigation, Pagination]}
+                    allowTouchMove = {true}
+                    onSwiper={(swiper) => {
+                        swiperRef.current = swiper;
+                    }}
+                    className='bigSwipper'
+                >
                     {selectedGallery.map((url, index) => (
                         <SwiperSlide
                             key={index}
                         >
-                            {getFileType(url) === 'image' ? (
+                            {/* {getFileType(url) === 'image' ? (
                                 <Image
                                     src={url}
                                     alt={`Slide ${index}`}
                                     className="modal-media"
                                     width={1000}
                                     height={1000}
+                                    onClick={() => setZoomIndex(index)}
                                 />
                             ) : (
                                 <video
@@ -60,12 +73,16 @@ export default function BigSlider(props: TProps) {
                                     muted
                                     playsInline
                                     className="modal-media"
+                                    onClick={() => setZoomIndex(index)}
                                 />
-                            )}
+                            )} */}
+                            <ZoomableSlide type={getFileType(url)} src={url} ref={swiperRef} />
                         </SwiperSlide>
                     ))}
                 </Swiper>
             </div>
+
         </div>
     );
 }
+

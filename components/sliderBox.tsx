@@ -15,11 +15,14 @@ import Link from 'next/link';
 import { useGlobalContext } from '@/context/globalContext';
 import type { TService } from '../types'
 import VideoPlayer from './video';
+import BigSlider from './bigSlider';
+import { useState } from 'react';
 
 
 export default function SliderBox() {
 
     const { services } = useGlobalContext();
+    const [selectedGallery, setSelectedGallery] = useState<string[] | null>(null);
 
     // const { data } = useSWR(`${baseUrl}/services`, getServices);
 
@@ -72,10 +75,13 @@ export default function SliderBox() {
                                                     height={500}
                                                     className="slider-image-file"
                                                     priority={index === 0}
+                                                    onClick={() => setSelectedGallery(item.imagesPaths.split(','))}
                                                 />
 
                                             ) : (
-                                                <div className="video-wrapper">
+                                                <div className="video-wrapper"
+                                                    onClick={() => setSelectedGallery(item.imagesPaths.split(','))}
+                                                >
                                                     <VideoPlayer src={path} />
                                                 </div>
                                             )}
@@ -107,6 +113,10 @@ export default function SliderBox() {
                     </div>
                 ))
             }
+            <BigSlider
+                selectedGallery={selectedGallery}
+                setSelectedGallery={setSelectedGallery}
+            />
             {/* <div className='look-more-btn-box'>
                 <button
                     className='look-more-btn'

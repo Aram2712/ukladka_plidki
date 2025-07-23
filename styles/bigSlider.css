@@ -70,3 +70,10 @@
   box-shadow: 0 0 30px rgba(0,0,0,0.6);
   scale: 1.5;
 }
+
+@media (max-width: 567px) {
+    .bigSwipper>.swiper-button-prev,
+    .bigSwipper>.swiper-button-next {
+        display: inline !important;
+    }
+}

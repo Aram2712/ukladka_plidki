@@ -5,6 +5,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
+import { useState } from 'react';
 import Image from "next/image";
 import Comments from '../../components/comments';
 import FooterBox from '../../components/footerBox';
@@ -14,6 +15,7 @@ import FooterBox from '../../components/footerBox';
 import { useGlobalContext } from '@/context/globalContext';
 import type { TService } from '../../types'
 import VideoPlayer from '../../components/video';
+import BigSlider from '@/components/bigSlider';
 
 type TProps = {
     setCurrentService: (service: TService | null) => void
@@ -24,6 +26,8 @@ export default function OtherServices(props: TProps) {
     const { setCurrentService } = props;
 
     const { services } = useGlobalContext();
+
+    const [selectedGallery, setSelectedGallery] = useState<string[] | null>(null);
 
     // const { data } = useSWR(`${baseUrl}/services`, getServices);
     function getFileType(filename: string) {
@@ -68,26 +72,15 @@ export default function OtherServices(props: TProps) {
                                                     height={500}
                                                     className="slider-image-file"
                                                     priority={index === 0}
+                                                    onClick={() => setSelectedGallery(item.imagesPaths.split(','))}
                                                 />
 
                                             ) : (
-                                                <div className="video-wrapper">
+                                                <div 
+                                                    className="video-wrapper"
+                                                    onClick={() => setSelectedGallery(item.imagesPaths.split(','))}
+                                                >
                                                     <VideoPlayer src={path} />
-                                                    {/* <video
-                                                        // src={`${filesPath}/${item.src}`}
-                                                        src={path}
-                                                        muted
-                                                        autoPlay={true}
-                                                        controls={false}
-                                                        preload="metadata"
-                                                        playsInline
-                                                        style={{
-                                                            width: '100%',
-                                                            height: '100%',
-                                                            objectFit: 'cover',
-                                                            display: 'block',
-                                                        }}
-                                                    /> */}
                                                 </div>
                                             )}
                                         </div>
@@ -125,6 +118,10 @@ export default function OtherServices(props: TProps) {
                     Посмотреть еще
                 </button>
             </div> */}
+            <BigSlider
+                selectedGallery={selectedGallery}
+                setSelectedGallery={setSelectedGallery}
+            />
             <Comments />
             <FooterBox />
         </div>
