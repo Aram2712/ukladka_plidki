@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import '../../styles/services.css'
 import type { TService } from '@/types';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Zoom } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
