@@ -22,10 +22,6 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
             width="100%"
             height="100dvh"
             overflow="hidden"
-            sx={{
-                WebkitOverflowScrolling: 'touch',
-                touchAction: 'none',
-            }}
         >
             <TransformWrapper
                 wheel={{ step: 0.2 }}
@@ -36,12 +32,12 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
             >
                 {({ zoomIn, zoomOut }) => (
                     <>
-                        <Box position="absolute" top={0} left={0} zIndex={10}>
+                        <Box position="absolute" top={0} left={0} zIndex={1000}>
                             <IconButton
                                 onClick={() => {
                                     if (ref.current) {
-                                        ref.current.allowTouchMove = true;
-                                        ref.current.update();
+                                        // ref.current.allowTouchMove = true;
+                                        // ref.current.update();
                                         zoomOut(1)
                                     }
                                 }}
@@ -50,15 +46,15 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
                                     style={{
                                         color: 'white',
                                         fontSize: '32px',
-                                        WebkitTapHighlightColor: 'transparent',
+                                        // WebkitTapHighlightColor: 'transparent',
                                     }}
                                 />
                             </IconButton>
                             <IconButton
                                 onClick={() => {
                                     if (ref.current) {
-                                        ref.current.allowTouchMove = false;
-                                        ref.current.update()
+                                        // ref.current.allowTouchMove = false;
+                                        // ref.current.update()
                                         zoomIn();
                                     }
                                 }}
@@ -67,7 +63,7 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
                                     style={{
                                         color: 'white',
                                         fontSize: '32px',
-                                        WebkitTapHighlightColor: 'transparent',
+                                        // WebkitTapHighlightColor: 'transparent',
                                     }}
                                 />
                             </IconButton>
@@ -77,7 +73,7 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
                                 width: '100%',
                                 height: '100%',
                                 cursor: 'grab',
-                                touchAction: 'none',
+                                // touchAction: 'none',
                             }}
                             contentStyle={{
                                 width: '100%',
@@ -85,8 +81,8 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                WebkitUserSelect: 'none',
-                                userSelect: 'none',
+                                // WebkitUserSelect: 'none',
+                                // userSelect: 'none',
                             }}
                         >
                             {type === 'image' ? (
@@ -101,7 +97,6 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
                                         pointerEvents: 'auto',
                                         userSelect: 'none',
                                     }}
-
                                     draggable={false}
                                 />
                             ) : (
