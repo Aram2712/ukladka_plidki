@@ -51,11 +51,14 @@ const VideoPlayer = ({ src }: TProps) => {
             controls={true}
             preload="metadata"
             playsInline
+            draggable={false}
             style={{
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
                 display: 'block',
+                userSelect: 'none',
+                pointerEvents: 'auto',
             }}
         />
     );
