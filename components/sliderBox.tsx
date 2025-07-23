@@ -18,7 +18,6 @@ import VideoPlayer from './video';
 import BigSlider from './bigSlider';
 import { useState } from 'react';
 
-
 export default function SliderBox() {
 
     const { services } = useGlobalContext();
@@ -80,7 +79,7 @@ export default function SliderBox() {
 
                                             ) : (
                                                 <div className="video-wrapper"
-                                                    onClick={() => setSelectedGallery(item.imagesPaths.split(','))}
+                                                // onClick={() => setSelectedGallery(item.imagesPaths.split(','))}
                                                 >
                                                     <VideoPlayer src={path} />
                                                 </div>
@@ -103,12 +102,10 @@ export default function SliderBox() {
                                 style={{
                                     textDecoration: 'none',
                                     color: 'black'
-
                                 }}
                             >
                                 Подробнее
                             </Link>
-
                         </div>
                     </div>
                 ))
@@ -117,13 +114,6 @@ export default function SliderBox() {
                 selectedGallery={selectedGallery}
                 setSelectedGallery={setSelectedGallery}
             />
-            {/* <div className='look-more-btn-box'>
-                <button
-                    className='look-more-btn'
-                >
-                    Посмотреть еще
-                </button>
-            </div> */}
             <Comments />
             <FooterBox />
         </div>

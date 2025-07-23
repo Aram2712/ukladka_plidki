@@ -77,7 +77,24 @@ export default function BigSlider(props: TProps) {
                                     onClick={() => setZoomIndex(index)}
                                 />
                             )} */}
-                            <ZoomableSlide type={getFileType(url)} src={url} ref={swiperRef} />
+                            {/* <ZoomableSlide type={getFileType(url)} src={url} ref={swiperRef} /> */}
+                            {
+                                getFileType(url) === 'image' ?
+                                    (
+                                        <ZoomableSlide src={url} />
+                                    )
+                                    :
+                                    (
+                                        <video
+                                            src={url}
+                                            controls={true}
+                                            autoPlay
+                                            muted
+                                            playsInline
+                                            className="modal-media"
+                                        />
+                                    )
+                            }
                         </SwiperSlide>
                     ))}
                 </Swiper>

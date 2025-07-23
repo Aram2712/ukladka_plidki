@@ -16,7 +16,7 @@ const VideoPlayer = ({ src }: TProps) => {
                 setIsVisible(entry.isIntersecting);
             },
             {
-                threshold: 0.5, // Считаем "видимым", если хотя бы 30% видно
+                threshold: 0.5,
             }
         );
 
@@ -35,7 +35,7 @@ const VideoPlayer = ({ src }: TProps) => {
         if (!videoRef.current) return;
 
         if (isVisible) {
-            videoRef.current.play().catch(() => { }); // silence autoplay errors
+            videoRef.current.play().catch(() => { });
         }
         else {
             videoRef.current.pause();

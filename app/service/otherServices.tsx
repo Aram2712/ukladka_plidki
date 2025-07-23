@@ -76,10 +76,7 @@ export default function OtherServices(props: TProps) {
                                                 />
 
                                             ) : (
-                                                <div 
-                                                    className="video-wrapper"
-                                                    onClick={() => setSelectedGallery(item.imagesPaths.split(','))}
-                                                >
+                                                <div className="video-wrapper">
                                                     <VideoPlayer src={path} />
                                                 </div>
                                             )}

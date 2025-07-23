@@ -52,8 +52,8 @@ export default function Slider(props: TProps) {
         currentService &&
         <div className='service-slider-box'>
             <BigSlider
-                selectedGallery = {selectedGallery}
-                setSelectedGallery = {setSelectedGallery}
+                selectedGallery={selectedGallery}
+                setSelectedGallery={setSelectedGallery}
             />
             <h2>{currentService.title}</h2>
             <p>{currentService.description}</p>
@@ -62,7 +62,7 @@ export default function Slider(props: TProps) {
                 pagination={{ clickable: true }}
                 modules={[Navigation, Pagination]}
                 className="mySwiper"
-            >           
+            >
                 {
                     // item.imagesPaths.split(',').map((item: string, index: number) => (
                     media.map((path: string, index: number) => (
@@ -70,7 +70,7 @@ export default function Slider(props: TProps) {
                             <div
                                 className='slider-item-box'
                                 style={{
-                                    position:'relative'
+                                    position: 'relative'
                                 }}
                             >
                                 {getFileType(path) === 'image' ? (
@@ -84,12 +84,12 @@ export default function Slider(props: TProps) {
                                         priority={index === 0}
                                         onClick={() => setSelectedGallery(media)}
                                     />
-                                    )
+                                )
                                     :
                                     (
-                                        <div 
+                                        <div
                                             className="video-wrapper"
-                                            onClick={() => setSelectedGallery(media)}                                            
+                                            onClick={() => setSelectedGallery(media)}
                                         >
                                             <video
                                                 // src={`${filesPath}/${item.src}`}
@@ -105,8 +105,7 @@ export default function Slider(props: TProps) {
                                                     objectFit: 'cover',
                                                     display: 'block',
                                                 }}
-                                                onClick={() => setSelectedGallery(media)}
-                                        
+                                            // onClick={() => setSelectedGallery(media)}
                                             />
                                         </div>
                                     )}
@@ -115,6 +114,6 @@ export default function Slider(props: TProps) {
                     ))
                 }
             </Swiper>
-        </div >
+        </div>
     )
 }
