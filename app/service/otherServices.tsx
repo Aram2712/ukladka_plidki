@@ -79,6 +79,7 @@ export default function OtherServices(props: TProps) {
                                                 <div 
                                                     className="video-wrapper"
                                                     onClick={() => setSelectedGallery(item.imagesPaths.split(','))}
+                                                    onTouchStart={() => setSelectedGallery(item.imagesPaths.split(','))}
                                                 >
                                                     <VideoPlayer src={path} />
                                                 </div>

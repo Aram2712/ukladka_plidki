@@ -81,6 +81,7 @@ export default function SliderBox() {
                                             ) : (
                                                 <div className="video-wrapper"
                                                     onClick={() => setSelectedGallery(item.imagesPaths.split(','))}
+                                                    onTouchStart={() => setSelectedGallery(item.imagesPaths.split(','))}
                                                 >
                                                     <VideoPlayer src={path} />
                                                 </div>
