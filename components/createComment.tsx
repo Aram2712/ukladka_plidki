@@ -43,6 +43,8 @@ export default function CreateComment(props: TProps) {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState<string>('');
 
+    console.log(rating)
+
     const handleRating = (rate: number) => {
         setRating(rate)
     }
