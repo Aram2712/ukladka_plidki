@@ -4,15 +4,15 @@ import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { IconButton, Box } from '@mui/material';
-// import { Swiper as SwiperType } from 'swiper/types';
+import { Swiper as SwiperType } from 'swiper/types';
 
 type Props = {
     src: string;
     // type: 'image' | 'video' | "unknown";
-    // ref: React.MutableRefObject<SwiperType | null>;
+    ref: React.MutableRefObject<SwiperType | null>;
 };
 
-export const ZoomableSlide: React.FC<Props> = ({ src }) => {
+export const ZoomableSlide: React.FC<Props> = ({ src, ref }) => {
 
     return (
         <Box
@@ -33,13 +33,12 @@ export const ZoomableSlide: React.FC<Props> = ({ src }) => {
                         <Box position="absolute" top={0} left={0} zIndex={10}>
                             <IconButton
                                 onClick={() => {
-                                    zoomOut(1)
-
-                                    // if (ref.current) {
-                                    //     ref.current.allowTouchMove = true;
-                                    //     ref.current.update();
-                                    //     zoomOut(1)
-                                    // }
+                                
+                                    if (ref.current) {
+                                        ref.current.allowTouchMove = true;
+                                        ref.current.update();
+                                        zoomOut(1)
+                                    }
                                 }}
                             >
                                 <ZoomOutIcon
@@ -51,13 +50,12 @@ export const ZoomableSlide: React.FC<Props> = ({ src }) => {
                             </IconButton>
                             <IconButton
                                 onClick={() => {
-                                    zoomIn();
 
-                                    // if (ref.current) {
-                                    //     ref.current.allowTouchMove = false;
-                                    //     ref.current.update()
-                                    //     zoomIn();
-                                    // }
+                                    if (ref.current) {
+                                        ref.current.allowTouchMove = false;
+                                        ref.current.update()
+                                        zoomIn();
+                                    }
                                 }}
                             >
                                 <ZoomInIcon

@@ -80,7 +80,7 @@ export default function BigSlider(props: TProps) {
                             {
                                 getFileType(url) === 'image' ?
                                     (
-                                        <ZoomableSlide src={url} />
+                                        <ZoomableSlide src={url} ref = {swiperRef} />
                                     )
                                     :
                                     (

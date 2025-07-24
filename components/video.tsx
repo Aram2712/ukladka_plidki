@@ -15,30 +15,36 @@ const VideoPlayer = ({ src }: TProps) => {
             ([entry]) => {
                 setIsVisible(entry.isIntersecting);
             },
-            {
-                threshold: 0.5,
-            }
+            { threshold: 0.5 }
         );
 
-        if (videoRef.current) {
-            observer.observe(videoRef.current);
+        const current = videoRef.current;
+        if (current) {
+            observer.observe(current);
         }
 
         return () => {
-            if (videoRef.current) {
-                observer.unobserve(videoRef.current);
-            }
+            if (current) observer.unobserve(current);
         };
     }, []);
 
     useEffect(() => {
-        if (!videoRef.current) return;
+        const video = videoRef.current;
+        if (!video) return;
 
         if (isVisible) {
-            videoRef.current.play().catch(() => { });
-        }
-        else {
-            videoRef.current.pause();
+            video.muted = true; // Обязательно, чтобы сработал autoplay
+            video.play().then(() => {
+                // После успешного старта, можно включить звук
+                setTimeout(() => {
+                    video.muted = false;
+                    video.volume = 1.0;
+                }, 500); // небольшой таймаут — помогает Safari
+            }).catch((err) => {
+                console.warn('Autoplay failed', err);
+            });
+        } else {
+            video.pause();
         }
     }, [isVisible]);
 
@@ -46,11 +52,10 @@ const VideoPlayer = ({ src }: TProps) => {
         <video
             ref={videoRef}
             src={src}
-            controls={true}
-            // autoPlay={false}
-            // muted
+            controls
             preload="metadata"
             playsInline
+            muted // важно для Safari при загрузке
             draggable={false}
             style={{
                 width: '100%',
