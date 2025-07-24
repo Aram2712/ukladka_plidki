@@ -87,7 +87,7 @@ export default function BigSlider(props: TProps) {
                                         <video
                                             src={url}
                                             controls={true}
-                                            autoPlay = {false}
+                                            // autoPlay = {false}
                                             // muted
                                             playsInline
                                             className="modal-media"
