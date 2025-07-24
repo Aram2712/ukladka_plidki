@@ -91,15 +91,14 @@ export const ZoomableSlide: React.FC<Props> = ({ src, type, ref }) => {
                                         pointerEvents: 'auto',
                                         userSelect: 'none',
                                     }}
-
                                     draggable={false}
                                 />
                             ) : (
                                 <video
                                     src={src}
                                     controls={true}
-                                    autoPlay
-                                    muted
+                                    autoPlay={false}
+                                    // muted
                                     playsInline
                                     className="modal-media"
                                     style={{
