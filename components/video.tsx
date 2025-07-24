@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 
 type TProps = {
@@ -6,7 +5,6 @@ type TProps = {
 };
 
 const VideoPlayer = ({ src }: TProps) => {
-
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isVisible, setIsVisible] = useState(false);
     const [showControls, setShowControls] = useState(true);
@@ -29,30 +27,38 @@ const VideoPlayer = ({ src }: TProps) => {
         const video = videoRef.current;
         if (!video) return;
 
+        let hideTimeout: ReturnType<typeof setTimeout> | null = null;
+
         if (isVisible) {
-            video.muted = true;
-            video
-                .play()
-                .then(() => {
-                    setShowControls(true);
+            const playVideo = () => {
+                video
+                    .play()
+                    .then(() => {
+                        setShowControls(true);
+                        hideTimeout = setTimeout(() => {
+                            setShowControls(false);
+                        }, 2000);
+                    })
+                    .catch((err) => {
+                        console.warn('Autoplay failed', err);
+                    });
+            };
 
-                    const hideTimeout = setTimeout(() => {
-                        setShowControls(false);
-                    }, 2000);
-
-                    setTimeout(() => {
-                        video.muted = false;
-                        video.volume = 1.0;
-                    }, 1000);
-
-                    return () => clearTimeout(hideTimeout);
-                })
-                .catch(err => console.warn('Autoplay failed', err));
+            if (video.readyState >= 3) {
+                playVideo();
+            }
+            else {
+                video.addEventListener('canplay', playVideo, { once: true });
+            }
         }
         else {
             video.pause();
             setShowControls(true);
         }
+
+        return () => {
+            if (hideTimeout) clearTimeout(hideTimeout);
+        };
     }, [isVisible]);
 
     const handleVideoClick = () => {
@@ -60,7 +66,8 @@ const VideoPlayer = ({ src }: TProps) => {
         if (!video) return;
 
         if (video.paused) {
-            video.play()
+            video
+                .play()
                 .then(() => {
                     setShowControls(true);
                     setTimeout(() => setShowControls(false), 2000);
@@ -68,8 +75,9 @@ const VideoPlayer = ({ src }: TProps) => {
                 .catch((err) => {
                     console.warn('Play failed:', err);
                 });
-        } else {
-            setShowControls(true); // показываем controls при паузе
+        }
+        else {
+            setShowControls(true);
         }
     };
 
