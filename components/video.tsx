@@ -5,6 +5,7 @@ type TProps = {
 };
 
 const VideoPlayer = ({ src }: TProps) => {
+
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isVisible, setIsVisible] = useState(false);
     const [showControls, setShowControls] = useState(true);
@@ -87,7 +88,8 @@ const VideoPlayer = ({ src }: TProps) => {
                 .catch((err) => {
                     console.warn('Play failed:', err);
                 });
-        } else {
+        }
+        else {
             // Видео играет, показать контролы и включить звук
             video.muted = false;
             video.volume = 1;

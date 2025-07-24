@@ -4,6 +4,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore from "swiper";
 import { Navigation, Pagination } from 'swiper/modules';
 import Image from "next/image";
 import Comments from './comments';
@@ -46,6 +47,10 @@ export default function SliderBox() {
         return 'unknown';
     }
 
+    const handleSlideChange = (swiper: SwiperCore) => {
+
+    }
+
     return (
         <div className='sliders-container'>
             {
@@ -57,6 +62,7 @@ export default function SliderBox() {
                             pagination={{ clickable: true }}
                             modules={[Navigation, Pagination]}
                             className="mySwiper"
+                            onSlideChange={handleSlideChange}
                         >
                             {
                                 // item.imagesPaths.split(',').map((item: string, index: number) => (
