@@ -1,3 +1,4 @@
+
 import { useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper/types';
@@ -22,7 +23,7 @@ type TProps = {
 export default function BigSlider(props: TProps) {
 
     const { selectedGallery, setSelectedGallery } = props;
-    
+
     const swiperRef = useRef<SwiperType | null>(null);
 
     useEffect(() => {
@@ -46,7 +47,7 @@ export default function BigSlider(props: TProps) {
                     navigation
                     pagination={{ clickable: true }}
                     modules={[Navigation, Pagination]}
-                    allowTouchMove = {true}
+                    allowTouchMove={true}
                     onSwiper={(swiper) => {
                         swiperRef.current = swiper;
                     }}
@@ -76,12 +77,28 @@ export default function BigSlider(props: TProps) {
                                     onClick={() => setZoomIndex(index)}
                                 />
                             )} */}
-                            <ZoomableSlide type={getFileType(url)} src={url} ref={swiperRef} />
+                            {/* <ZoomableSlide type={getFileType(url)} src={url} ref={swiperRef} /> */}
+                            {
+                                getFileType(url) === 'image' ?
+                                    (
+                                        <ZoomableSlide src={url} />
+                                    )
+                                    :
+                                    (
+                                        <video
+                                            src={url}
+                                            controls={true}
+                                            autoPlay
+                                            muted
+                                            playsInline
+                                            className="modal-media"
+                                        />
+                                    )
+                            }
                         </SwiperSlide>
                     ))}
                 </Swiper>
             </div>
-
         </div>
     );
 }
