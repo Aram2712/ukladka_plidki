@@ -1,4 +1,3 @@
-
 import { useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper/types';
@@ -88,8 +87,8 @@ export default function BigSlider(props: TProps) {
                                         <video
                                             src={url}
                                             controls={true}
-                                            autoPlay
-                                            muted
+                                            autoPlay = {false}
+                                            // muted
                                             playsInline
                                             className="modal-media"
                                         />
@@ -102,4 +101,3 @@ export default function BigSlider(props: TProps) {
         </div>
     );
 }
-
