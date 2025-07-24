@@ -6,11 +6,11 @@ type TProps = {
 };
 
 const VideoPlayer = ({ src }: TProps) => {
+
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isVisible, setIsVisible] = useState(false);
     const [showControls, setShowControls] = useState(true);
 
-    // Intersection Observer — следим за видимостью видео
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => setIsVisible(entry.isIntersecting),
@@ -25,7 +25,6 @@ const VideoPlayer = ({ src }: TProps) => {
         };
     }, []);
 
-    // Воспроизведение/пауза + автоскрытие controls
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
@@ -37,16 +36,14 @@ const VideoPlayer = ({ src }: TProps) => {
                 .then(() => {
                     setShowControls(true);
 
-                    // Автоматическое скрытие controls через 2 секунды
                     const hideTimeout = setTimeout(() => {
                         setShowControls(false);
                     }, 2000);
 
-                    // Размьют через 0.7 сек (для Safari)
                     setTimeout(() => {
                         video.muted = false;
                         video.volume = 1.0;
-                    }, 700);
+                    }, 1000);
 
                     return () => clearTimeout(hideTimeout);
                 })
@@ -58,18 +55,21 @@ const VideoPlayer = ({ src }: TProps) => {
         }
     }, [isVisible]);
 
-    // 👆 Клик по видео: ставим паузу и показываем controls
     const handleVideoClick = () => {
         const video = videoRef.current;
         if (!video) return;
 
         if (video.paused) {
-            video.play();
-            setShowControls(true);
-            setTimeout(() => setShowControls(false), 2000);
-        }
-        else {
-            setShowControls(true);
+            video.play()
+                .then(() => {
+                    setShowControls(true);
+                    setTimeout(() => setShowControls(false), 2000);
+                })
+                .catch((err) => {
+                    console.warn('Play failed:', err);
+                });
+        } else {
+            setShowControls(true); // показываем controls при паузе
         }
     };
 
@@ -88,7 +88,7 @@ const VideoPlayer = ({ src }: TProps) => {
                 height: '100%',
                 objectFit: 'cover',
                 display: 'block',
-                touchAction: 'manipulation', // для мобильных
+                touchAction: 'manipulation',
             }}
         />
     );
