@@ -32,7 +32,8 @@ const VideoPlayer = ({ src }: TProps) => {
 
         if (isVisible) {
             video.muted = true;
-            video.play()
+            video
+                .play()
                 .then(() => {
                     setShowControls(true);
 
@@ -41,16 +42,17 @@ const VideoPlayer = ({ src }: TProps) => {
                         setShowControls(false);
                     }, 2000);
 
-                    // Размьют через 0.5 сек (для Safari)
+                    // Размьют через 0.7 сек (для Safari)
                     setTimeout(() => {
                         video.muted = false;
                         video.volume = 1.0;
-                    }, 500);
+                    }, 700);
 
                     return () => clearTimeout(hideTimeout);
                 })
                 .catch(err => console.warn('Autoplay failed', err));
-        } else {
+        }
+        else {
             video.pause();
             setShowControls(true);
         }
@@ -65,9 +67,9 @@ const VideoPlayer = ({ src }: TProps) => {
             video.play();
             setShowControls(true);
             setTimeout(() => setShowControls(false), 2000);
-        } else {
-            video.pause();
-            setShowControls(true); // показываем controls при паузе
+        }
+        else {
+            setShowControls(true);
         }
     };
 
