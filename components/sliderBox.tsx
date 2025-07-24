@@ -85,7 +85,7 @@ export default function SliderBox() {
                                                 <div className="video-wrapper"
                                                 // onClick={() => setSelectedGallery(item.imagesPaths.split(','))}
                                                 >
-                                                    <VideoPlayer src={path} />
+                                                    <VideoPlayer src={path} userInteractedRef={userInteractedRef} />
                                                 </div>
                                             )}
                                         </div>
