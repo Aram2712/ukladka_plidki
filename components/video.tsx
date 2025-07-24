@@ -29,21 +29,31 @@ const VideoPlayer = ({ src }: TProps) => {
 
         let hideTimeout: ReturnType<typeof setTimeout> | null = null;
 
-        if (isVisible) {
-            const playVideo = () => {
-                video
-                    .play()
-                    .then(() => {
-                        setShowControls(true);
-                        hideTimeout = setTimeout(() => {
-                            setShowControls(false);
-                        }, 2000);
-                    })
-                    .catch((err) => {
-                        console.warn('Autoplay failed', err);
-                    });
-            };
+        const playVideo = () => {
+            video.muted = true;
 
+            video
+                .play()
+                .then(() => {
+                    setShowControls(true);
+
+                    // Автоматически скрыть контролы
+                    hideTimeout = setTimeout(() => {
+                        setShowControls(false);
+                    }, 2000);
+
+                    // Через секунду включить звук
+                    setTimeout(() => {
+                        video.muted = false;
+                        video.volume = 1;
+                    }, 1000);
+                })
+                .catch((err) => {
+                    console.warn('Autoplay failed', err);
+                });
+        };
+
+        if (isVisible) {
             if (video.readyState >= 3) {
                 playVideo();
             }
@@ -69,14 +79,18 @@ const VideoPlayer = ({ src }: TProps) => {
             video
                 .play()
                 .then(() => {
+                    video.muted = false;
+                    video.volume = 1;
                     setShowControls(true);
                     setTimeout(() => setShowControls(false), 2000);
                 })
                 .catch((err) => {
                     console.warn('Play failed:', err);
                 });
-        }
-        else {
+        } else {
+            // Видео играет, показать контролы и включить звук
+            video.muted = false;
+            video.volume = 1;
             setShowControls(true);
         }
     };
