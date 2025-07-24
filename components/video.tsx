@@ -10,7 +10,7 @@ const VideoPlayer = ({ src }: TProps) => {
     const [isVisible, setIsVisible] = useState(false);
     const [showControls, setShowControls] = useState(true);
 
-    // IntersectionObserver
+    // Intersection Observer — следим за видимостью видео
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => setIsVisible(entry.isIntersecting),
@@ -25,7 +25,7 @@ const VideoPlayer = ({ src }: TProps) => {
         };
     }, []);
 
-    // Автовоспроизведение + авто-скрытие controls
+    // Воспроизведение/пауза + автоскрытие controls
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
@@ -34,27 +34,42 @@ const VideoPlayer = ({ src }: TProps) => {
             video.muted = true;
             video.play()
                 .then(() => {
-                    // Временно показываем controls
                     setShowControls(true);
 
-                    setTimeout(() => {
-                        setShowControls(false); // скрываем controls через 2 секунды
+                    // Автоматическое скрытие controls через 2 секунды
+                    const hideTimeout = setTimeout(() => {
+                        setShowControls(false);
                     }, 2000);
 
+                    // Размьют через 0.5 сек (для Safari)
                     setTimeout(() => {
                         video.muted = false;
                         video.volume = 1.0;
-                    }, 1000);
+                    }, 500);
+
+                    return () => clearTimeout(hideTimeout);
                 })
-                .catch(err => {
-                    console.warn('Autoplay failed', err);
-                });
+                .catch(err => console.warn('Autoplay failed', err));
+        } else {
+            video.pause();
+            setShowControls(true);
         }
-        else {
+    }, [isVisible]);
+
+    // 👆 Клик по видео: ставим паузу и показываем controls
+    const handleVideoClick = () => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        if (video.paused) {
+            video.play();
+            setShowControls(true);
+            setTimeout(() => setShowControls(false), 2000);
+        } else {
             video.pause();
             setShowControls(true); // показываем controls при паузе
         }
-    }, [isVisible]);
+    };
 
     return (
         <video
@@ -65,11 +80,13 @@ const VideoPlayer = ({ src }: TProps) => {
             playsInline
             muted
             draggable={false}
+            onClick={handleVideoClick}
             style={{
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
                 display: 'block',
+                touchAction: 'manipulation', // для мобильных
             }}
         />
     );
