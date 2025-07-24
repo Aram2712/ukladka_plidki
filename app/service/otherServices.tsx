@@ -16,6 +16,7 @@ import { useGlobalContext } from '@/context/globalContext';
 import type { TService } from '../../types'
 import VideoPlayer from '../../components/video';
 import BigSlider from '@/components/bigSlider';
+import { useRef } from 'react';
 
 type TProps = {
     setCurrentService: (service: TService | null) => void
@@ -28,6 +29,7 @@ export default function OtherServices(props: TProps) {
     const { services } = useGlobalContext();
 
     const [selectedGallery, setSelectedGallery] = useState<string[] | null>(null);
+    const userInteractedRef = useRef(false);
 
     // const { data } = useSWR(`${baseUrl}/services`, getServices);
     function getFileType(filename: string) {
@@ -55,6 +57,9 @@ export default function OtherServices(props: TProps) {
                             pagination={{ clickable: true }}
                             modules={[Navigation, Pagination]}
                             className="mySwiper"
+                            onSlideChange={() => {
+                                userInteractedRef.current = true;
+                            }}
                         >
                             {
                                 // item.imagesPaths.split(',').map((item: string, index: number) => (
@@ -77,7 +82,7 @@ export default function OtherServices(props: TProps) {
 
                                             ) : (
                                                 <div className="video-wrapper">
-                                                    <VideoPlayer src={path} />
+                                                    <VideoPlayer src={path} userInteractedRef={userInteractedRef} />
                                                 </div>
                                             )}
                                         </div>
