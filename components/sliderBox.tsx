@@ -4,7 +4,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore from "swiper";
 import { Navigation, Pagination } from 'swiper/modules';
 import Image from "next/image";
 import Comments from './comments';
@@ -17,12 +16,13 @@ import { useGlobalContext } from '@/context/globalContext';
 import type { TService } from '../types'
 import VideoPlayer from './video';
 import BigSlider from './bigSlider';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function SliderBox() {
 
     const { services } = useGlobalContext();
     const [selectedGallery, setSelectedGallery] = useState<string[] | null>(null);
+    const userInteractedRef = useRef(false);
 
     // const { data } = useSWR(`${baseUrl}/services`, getServices);
 
@@ -47,10 +47,6 @@ export default function SliderBox() {
         return 'unknown';
     }
 
-    const handleSlideChange = (swiper: SwiperCore) => {
-
-    }
-
     return (
         <div className='sliders-container'>
             {
@@ -62,7 +58,9 @@ export default function SliderBox() {
                             pagination={{ clickable: true }}
                             modules={[Navigation, Pagination]}
                             className="mySwiper"
-                            onSlideChange={handleSlideChange}
+                            onSlideChange={() => {
+                                userInteractedRef.current = true;
+                            }}
                         >
                             {
                                 // item.imagesPaths.split(',').map((item: string, index: number) => (

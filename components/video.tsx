@@ -2,14 +2,33 @@ import { useEffect, useRef, useState } from 'react';
 
 type TProps = {
     src: string;
+    userInteractedRef: React.MutableRefObject<boolean>;
 };
 
-const VideoPlayer = ({ src }: TProps) => {
-
+const VideoPlayer = ({ src, userInteractedRef }: TProps) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isVisible, setIsVisible] = useState(false);
     const [showControls, setShowControls] = useState(true);
+    // const userInteracted = useRef(false);
 
+    // Запоминаем, что юзер взаимодействовал
+    useEffect(() => {
+        const markInteraction = () => {
+            userInteractedRef.current = true;
+            window.removeEventListener('click', markInteraction);
+            window.removeEventListener('touchstart', markInteraction);
+        };
+
+        window.addEventListener('click', markInteraction);
+        window.addEventListener('touchstart', markInteraction);
+
+        return () => {
+            window.removeEventListener('click', markInteraction);
+            window.removeEventListener('touchstart', markInteraction);
+        };
+    }, []);
+
+    // Отслеживаем видимость
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => setIsVisible(entry.isIntersecting),
@@ -24,6 +43,7 @@ const VideoPlayer = ({ src }: TProps) => {
         };
     }, []);
 
+    // Воспроизведение видео
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
@@ -31,23 +51,16 @@ const VideoPlayer = ({ src }: TProps) => {
         let hideTimeout: ReturnType<typeof setTimeout> | null = null;
 
         const playVideo = () => {
-            video.muted = true;
+            if (!userInteractedRef.current) return;
+
+            video.muted = false;
+            video.volume = 1;
 
             video
                 .play()
                 .then(() => {
                     setShowControls(true);
-
-                    // Автоматически скрыть контролы
-                    hideTimeout = setTimeout(() => {
-                        setShowControls(false);
-                    }, 2000);
-
-                    // Через секунду включить звук
-                    setTimeout(() => {
-                        video.muted = false;
-                        video.volume = 1;
-                    }, 1000);
+                    hideTimeout = setTimeout(() => setShowControls(false), 2000);
                 })
                 .catch((err) => {
                     console.warn('Autoplay failed', err);
@@ -57,12 +70,10 @@ const VideoPlayer = ({ src }: TProps) => {
         if (isVisible) {
             if (video.readyState >= 3) {
                 playVideo();
-            }
-            else {
+            } else {
                 video.addEventListener('canplay', playVideo, { once: true });
             }
-        }
-        else {
+        } else {
             video.pause();
             setShowControls(true);
         }
@@ -75,6 +86,8 @@ const VideoPlayer = ({ src }: TProps) => {
     const handleVideoClick = () => {
         const video = videoRef.current;
         if (!video) return;
+
+        userInteractedRef.current = true;
 
         if (video.paused) {
             video
@@ -90,7 +103,6 @@ const VideoPlayer = ({ src }: TProps) => {
                 });
         }
         else {
-            // Видео играет, показать контролы и включить звук
             video.muted = false;
             video.volume = 1;
             setShowControls(true);
@@ -104,7 +116,7 @@ const VideoPlayer = ({ src }: TProps) => {
             controls={showControls}
             preload="metadata"
             playsInline
-            muted
+            muted // начальное значение, отключается позже
             draggable={false}
             onClick={handleVideoClick}
             style={{
