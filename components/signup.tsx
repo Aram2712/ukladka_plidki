@@ -40,7 +40,7 @@ export default function SignUp(props: TProps) {
     const {
         showSignup,
         setShowSignup,
-        setShowSignin 
+        setShowSignin
     } = props;
 
     const [fullName, setFullName] = useState<string>('');
@@ -54,7 +54,7 @@ export default function SignUp(props: TProps) {
         setShowSignup(false);
     }
 
-    const { trigger, isMutating, error } = useSWRMutation(
+    const { trigger } = useSWRMutation(
         `${baseUrl}/auth/signup`,
         async (url, { arg }: { arg: TUser }) => signup(url, arg)
     );
@@ -65,13 +65,15 @@ export default function SignUp(props: TProps) {
             fullName,
             phoneNumber,
             password,
-            role:'user'
+            role: 'user'
         }
         try {
             const result = await trigger(data);
-            setShowSignin(true);
-            close()
-        } 
+            if (result) {
+                setShowSignin(true);
+                close()
+            }
+        }
         catch (err) {
             console.error('Ошибка при добавлении:', err);
         }
@@ -89,7 +91,7 @@ export default function SignUp(props: TProps) {
                 <h3 className='modal-header'>Создать аккаунт</h3>
                 <form
                     className='modal-form'
-                onSubmit={handleSubmit}
+                    onSubmit={handleSubmit}
                 >
                     <span className='modal-label-text'>Номер телефона</span>
                     <PhoneInput

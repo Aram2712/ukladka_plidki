@@ -29,7 +29,6 @@ const style = {
     outline: 'none'
 };
 
-
 type TProps = {
     showUserWindow: boolean
     setShowUserWindow: (show: boolean) => void

@@ -6,7 +6,7 @@ import { getServices } from '../../api';
 import { baseUrl } from '@/constants';
 import type { TService } from '@/types';
 import ConcretService from '../../components/cuncretService'
-import AddService from '../../components/addService' ;
+import AddService from '../../components/addService';
 import useSWR from 'swr';
 import { deleteService } from '../../api';
 // import { useGlobalContext } from '@/context/globalContext';
@@ -29,11 +29,11 @@ function AdminServices() {
     const deleteCurrentService = async (item: TService) => {
         if (item) {
             const response = await deleteService(`${baseUrl}/services/${item.id}`);
-            if(response) await mutate();
+            if (response) await mutate();
         }
     }
 
-    return(
+    return (
         <div className='admin-orders-container'>
             <table className='admin-order-table'>
                 <thead>
@@ -45,14 +45,14 @@ function AdminServices() {
                 <tbody>
                     {
                         data?.data.map((item: TService) => (
-                        // services.map((item: TService) => (
-                            <tr key = {item.id}>
-                                <td style = {{cursor: 'pointer'}} onClick = {() => showCurrentService(item)}>{item.title}</td>
+                            // services.map((item: TService) => (
+                            <tr key={item.id}>
+                                <td style={{ cursor: 'pointer' }} onClick={() => showCurrentService(item)}>{item.title}</td>
                                 <td>
-                                    <AiFillDelete 
-                                        style = {{color: 'red', cursor: 'pointer'}} 
+                                    <AiFillDelete
+                                        style={{ color: 'red', cursor: 'pointer' }}
                                         title='Удалить'
-                                        onClick = {() => deleteCurrentService(item)}
+                                        onClick={() => deleteCurrentService(item)}
                                     />
                                 </td>
                             </tr>
@@ -61,7 +61,7 @@ function AdminServices() {
                 </tbody>
             </table>
             <div className='add-service-box'>
-                <button 
+                <button
                     className='add-service-button'
                     onClick={() => setShowAddService(true)}
                 >
@@ -69,8 +69,8 @@ function AdminServices() {
                 </button>
             </div>
             <AddService
-                showAddService = { showAddService }
-                setShowAddService={ setShowAddService }
+                showAddService={showAddService}
+                setShowAddService={setShowAddService}
             />
             <ConcretService
                 showConcretService={showConcretService}

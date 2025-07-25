@@ -8,7 +8,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import Image from "next/image";
 import Comments from './comments';
 import FooterBox from './footerBox';
-import { baseUrl, filesPath, localFilesPath } from '@/constants';
+import { baseUrl, filesPath } from '@/constants';
 import { getServices } from '../api';
 import useSWR from 'swr';
 import Link from 'next/link';
@@ -46,12 +46,12 @@ export default function SliderBox() {
 
         return 'unknown';
     }
-    console.log(data)
+
     return (
         <div className='sliders-container'>
             {
                 data?.data.map((item: TService, index: number) => (
-                // services.map((item: TService, index: number) => (
+                    // services.map((item: TService, index: number) => (
                     <div className='service-item-container' key={index}>
                         <Swiper
                             navigation={true}

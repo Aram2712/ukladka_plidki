@@ -5,26 +5,26 @@ import { IoMdClose } from "react-icons/io";
 import { useState } from 'react';
 import { MuiFileInput } from 'mui-file-input'
 import { createService, getServices } from '../api';
+import { baseUrl } from '@/constants';
 import useSWRMutation from 'swr/mutation';
 import useSWR from 'swr';
-import { baseUrl } from '@/constants';
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 500,
-  maxWidth: '95%',
-  bgcolor: 'white',
-  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-  borderRadius: '10px',
-  p: 2,
-  display: "flex",
-  flexDirection: 'column',
-  alignItems: 'center',
-  border: 'none',
-  outline: 'none'
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 500,
+    maxWidth: '95%',
+    bgcolor: 'white',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+    borderRadius: '10px',
+    p: 2,
+    display: "flex",
+    flexDirection: 'column',
+    alignItems: 'center',
+    border: 'none',
+    outline: 'none'
 };
 
 type TProps = {
@@ -65,7 +65,7 @@ export default function AddService(props: TProps) {
                 await mutate();
             }
             close();
-        } 
+        }
         catch (err) {
             console.error('Ошибка при добавлении:', err);
         }
@@ -79,33 +79,33 @@ export default function AddService(props: TProps) {
         setShowAddService(false);
     }
 
-    return(
+    return (
         <Modal
             open={showAddService}
         >
-            <Box sx = {style}>
-                <IoMdClose 
+            <Box sx={style}>
+                <IoMdClose
                     className='close-modal-icon'
                     onClick={close}
                 />
                 <h3 className='modal-header'>Создать услугу</h3>
-                <form 
-                    className='modal-form' 
+                <form
+                    className='modal-form'
                     onSubmit={handlesSubmit}
                 >
                     <span className='modal-label-text'>Заголовка</span>
-                    <input type='text' className='modal-input' value={title} onChange={e => setTitle(e.target.value)}/>
+                    <input type='text' className='modal-input' value={title} onChange={e => setTitle(e.target.value)} />
                     <span className='modal-label-text'>Описание</span>
-                    <textarea 
+                    <textarea
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                         className='modal-input modal-textarea'
-                        style={{marginTop: 0}}
+                        style={{ marginTop: 0 }}
                     />
                     <span className='modal-label-text'>Фото / видео</span>
-                    <MuiFileInput 
-                        value={photo} 
-                        onChange={value => setPhoto(value)} 
+                    <MuiFileInput
+                        value={photo}
+                        onChange={value => setPhoto(value)}
                         size='small'
                         placeholder='Загрузить'
                         style={{
@@ -114,8 +114,8 @@ export default function AddService(props: TProps) {
                         multiple
                     />
                     <span className='modal-label-text'>Цена</span>
-                    <input type='text' className='modal-input' value={price} onChange={e => setPrice(e.target.value)}/>
-                    <input type='submit' className='modal-button' value = 'Сохранить'/>
+                    <input type='text' className='modal-input' value={price} onChange={e => setPrice(e.target.value)} />
+                    <input type='submit' className='modal-button' value='Сохранить' />
                 </form>
             </Box>
         </Modal>

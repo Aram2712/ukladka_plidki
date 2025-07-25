@@ -9,7 +9,6 @@ const VideoPlayer = ({ src, userInteractedRef }: TProps) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isVisible, setIsVisible] = useState(false);
     const [showControls, setShowControls] = useState(true);
-    // const userInteracted = useRef(false);
 
     // Запоминаем, что юзер взаимодействовал
     useEffect(() => {
@@ -70,10 +69,12 @@ const VideoPlayer = ({ src, userInteractedRef }: TProps) => {
         if (isVisible) {
             if (video.readyState >= 3) {
                 playVideo();
-            } else {
+            }
+            else {
                 video.addEventListener('canplay', playVideo, { once: true });
             }
-        } else {
+        }
+        else {
             video.pause();
             setShowControls(true);
         }

@@ -69,3 +69,7 @@ export const getAllForum = async (url: string) => {
 export const submitForumNewData = async (url: string, data: any) => {
     return await axiosMainUrl.post(url, data)
 }
+
+export const deleteOrder= async (url: string) => {
+    return await axiosMainUrl.delete(url);
+}

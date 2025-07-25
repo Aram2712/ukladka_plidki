@@ -11,23 +11,23 @@ import { useGlobalContext } from '@/context/globalContext';
 import { useSocket } from '../../hooks/useSocket';
 
 const style = {
-  position: 'fixed',
-      bottom: 100,
-      right: 10,
-      width: 400,
-      maxWidth: '95%',
-      height: 500,
-      maxHeight: '80%',
-      bgcolor: 'black',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-      borderRadius: '20px',
-      p: 1,
-      display: "flex",
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-      border: '1px solid #666666',
-      outline: 'none',
+    position: 'fixed',
+    bottom: 100,
+    right: 10,
+    width: 400,
+    maxWidth: '95%',
+    height: 500,
+    maxHeight: '80%',
+    bgcolor: 'black',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+    borderRadius: '20px',
+    p: 1,
+    display: "flex",
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    border: '1px solid #666666',
+    outline: 'none',
 };
 
 type TProps = {
@@ -36,21 +36,13 @@ type TProps = {
     users: TUser[]
 }
 
-type TMessage = {
-    id: number
-    receiverId: number | string
-    senderId: number | string
-    text: string
-}
-
 export default function AdminMessenger(props: TProps) {
 
-    const { 
-        showMessenger, 
-        setShowMessenger, 
-        users 
+    const {
+        showMessenger,
+        setShowMessenger
     } = props;
-    const {clients} = useGlobalContext();
+    const { clients } = useGlobalContext();
     const bottomRef = useRef<HTMLDivElement>(null);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -60,17 +52,17 @@ export default function AdminMessenger(props: TProps) {
     const [msg, setMsg] = useState('')
     const { sendMessage, messages } = useSocket('admin', activeUserId)
     console.log(concretUserMessages);
-    
-    function splitMessagesByUser<T extends {senderId: string, receiverId:string}>(messages: T[], currentUserId: string): T[][] {
+
+    function splitMessagesByUser<T extends { senderId: string, receiverId: string }>(messages: T[], currentUserId: string): T[][] {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const userMap: Record<string, any[]> = {};
 
         for (const msg of messages) {
             const opponentId =
-            msg.senderId === currentUserId ? msg.receiverId : msg.senderId;
+                msg.senderId === currentUserId ? msg.receiverId : msg.senderId;
 
             if (!userMap[opponentId]) {
-            userMap[opponentId] = [];
+                userMap[opponentId] = [];
             }
 
             userMap[opponentId].push(msg);
@@ -109,7 +101,7 @@ export default function AdminMessenger(props: TProps) {
 
     const getCurrentUserMessages = (id: number) => {
         const getCurrentData = groupedMessages.find(elem => {
-            if (Number(elem[0].senderId) === id || Number(elem[0].receiverId) === id){
+            if (Number(elem[0].senderId) === id || Number(elem[0].receiverId) === id) {
                 return elem
             }
         })
@@ -122,32 +114,32 @@ export default function AdminMessenger(props: TProps) {
         setActiveuserId(id.toString())
     }
 
-    return(
+    return (
         <Modal
             open={showMessenger}
         >
-            <Box sx = {style}>
-                <IoMdClose 
+            <Box sx={style}>
+                <IoMdClose
                     className='close-modal-icon'
-                    style={{color: 'white'}}
+                    style={{ color: 'white' }}
                     onClick={close}
                 />
                 {
                     concretUserMessages ?
-                    <FaChevronLeft
-                        className='close-modal-icon'
-                        style={{ left: '20px', top: '15px', fontSize: '20px', color: '#666666' }}
-                        onClick = {
-                            () => {
-                                setActiveuserId('');
-                                setConcretUsersMessages(null)
+                        <FaChevronLeft
+                            className='close-modal-icon'
+                            style={{ left: '20px', top: '15px', fontSize: '20px', color: '#666666' }}
+                            onClick={
+                                () => {
+                                    setActiveuserId('');
+                                    setConcretUsersMessages(null)
+                                }
                             }
-                        }
-                    />
-                    :
-                    null
+                        />
+                        :
+                        null
                 }
-                
+
                 <h3 className='messenger-header'>Messenger</h3>
                 <div
                     style={{
@@ -160,30 +152,30 @@ export default function AdminMessenger(props: TProps) {
                     }}
                 >
                     {
-                        !concretUserMessages ? 
+                        !concretUserMessages ?
                             clients?.filter((item) => item.role !== 'admin')
-                            .map((user, index) => (
-                                <div 
-                                    key = {index}
-                                    className='admin-messenger-username-text'
-                                    style={{
-                                        justifyContent:'flex-start'
-                                    }}
-                                    onClick={() => getCurrentUserMessages(Number(user.id))}
-                                >
-                                    {user.fullName}
-                                </div>
-                            ))
-                        :
+                                .map((user, index) => (
+                                    <div
+                                        key={index}
+                                        className='admin-messenger-username-text'
+                                        style={{
+                                            justifyContent: 'flex-start'
+                                        }}
+                                        onClick={() => getCurrentUserMessages(Number(user.id))}
+                                    >
+                                        {user.fullName}
+                                    </div>
+                                ))
+                            :
                             concretUserMessages?.map(item => (
-                                <div 
-                                    key = {item.id}
+                                <div
+                                    key={item.id}
                                     className='current-message-box'
                                     style={{
                                         justifyContent: item.receiverId === 'admin' ? 'flex-start' : 'flex-end'
                                     }}
                                 >
-                                    <span 
+                                    <span
                                         style={{
                                             // textAlign: item.receiverId === 'admin' ? 'left' : 'right',
                                             textAlign: 'left',
@@ -201,9 +193,9 @@ export default function AdminMessenger(props: TProps) {
                 {
                     concretUserMessages &&
                     <div className='messenger-new-message-box'>
-                        <input 
-                            type='text' 
-                            className='new-message-input' 
+                        <input
+                            type='text'
+                            className='new-message-input'
                             placeholder='Message'
                             value={msg}
                             onChange={e => setMsg(e.target.value)}
@@ -213,9 +205,9 @@ export default function AdminMessenger(props: TProps) {
                                 color: 'white',
                                 fontSize: '36px',
                                 padding: '5px',
-                                marginLeft:'10px',
+                                marginLeft: '10px',
                                 cursor: 'pointer',
-                                background:'#405DE6',
+                                background: '#405DE6',
                                 borderRadius: '20%',
 
                             }}

@@ -2,19 +2,20 @@
 import '../../styles/admin.css';
 import { AiFillDelete } from "react-icons/ai";
 import { getOrders } from '../../api';
-import useSWR from 'swr';
 import { baseUrl } from '@/constants';
 import type { TOrder } from '../../types';
-import OrderPhoto from '../../components/orderPhoto';
 import { useState } from 'react';
+import { deleteOrder } from '../../api';
+import OrderPhoto from '../../components/orderPhoto';
+import useSWR from 'swr';
 // import { useGlobalContext } from '@/context/globalContext';
 
 function AdminOrders() {
 
     // const {orders} = useGlobalContext();
 
-    const { data } = useSWR(`${baseUrl}/orders`, getOrders);
-    
+    const { data, mutate } = useSWR(`${baseUrl}/orders`, getOrders);
+
     const [showOrderPhoto, setShowOrderPhoto] = useState<boolean>(false);
     const [concretOrder, setConcretOrder] = useState<TOrder | null>(null);
 
@@ -37,8 +38,15 @@ function AdminOrders() {
 
         return `+7 (${code}) ${part1}-${part2}-${part3}`
     }
-    
-    return(
+
+    const deleteCurrentOrder = async (item: TOrder) => {
+        if (item) {
+            const response = await deleteOrder(`${baseUrl}/orders/${item.id}`);
+            if (response) await mutate();
+        }
+    }
+
+    return (
         <div className='admin-orders-container'>
             <table className='admin-order-table'>
                 <thead>
@@ -52,22 +60,22 @@ function AdminOrders() {
                 <tbody>
                     {
                         data?.data.map((item: TOrder) => (
-                        // orders.map((item: TOrder) => (
-                            <tr key = {item.id}>
+                            // orders.map((item: TOrder) => (
+                            <tr key={item.id}>
                                 <td>{item.square}</td>
                                 <td>{formatPhoneNumber(item.phoneNumber)}</td>
-                                <td style = {{cursor: 'pointer'}} onClick = {() => showCurrentPhoto(item)}>Посмотреть</td>   
-                                <td><AiFillDelete title='Удалить' style = {{color: 'red', cursor: 'pointer'}}/></td>
+                                <td style={{ cursor: 'pointer' }} onClick={() => showCurrentPhoto(item)}>Посмотреть</td>
+                                <td><AiFillDelete title='Удалить' style={{ color: 'red', cursor: 'pointer' }} onClick={() => deleteCurrentOrder(item)} /></td>
                             </tr>
                         ))
                     }
                 </tbody>
             </table>
             <OrderPhoto
-                showOrderPhoto = { showOrderPhoto }
-                setShowOrderPhoto={ setShowOrderPhoto }
-                concretOrder = { concretOrder }
-                setConcretOrder = { setConcretOrder }
+                showOrderPhoto={showOrderPhoto}
+                setShowOrderPhoto={setShowOrderPhoto}
+                concretOrder={concretOrder}
+                setConcretOrder={setConcretOrder}
             />
         </div>
     )
