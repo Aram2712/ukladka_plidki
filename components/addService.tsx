@@ -4,10 +4,10 @@ import Modal from '@mui/material/Modal';
 import { IoMdClose } from "react-icons/io";
 import { useState } from 'react';
 import { MuiFileInput } from 'mui-file-input'
-// import { createService, getServices } from '../api';
-// import useSWRMutation from 'swr/mutation';
-// import useSWR from 'swr';
-// import { baseUrl } from '@/constants';
+import { createService, getServices } from '../api';
+import useSWRMutation from 'swr/mutation';
+import useSWR from 'swr';
+import { baseUrl } from '@/constants';
 
 const style = {
   position: 'absolute',
@@ -41,35 +41,35 @@ export default function AddService(props: TProps) {
     const [description, setDescription] = useState<string>('');
     const [price, setPrice] = useState<string>('')
 
-    // const { mutate } = useSWR(`${baseUrl}/services`, getServices);
+    const { mutate } = useSWR(`${baseUrl}/services`, getServices);
 
-    // const { trigger } = useSWRMutation(
-    //     `${baseUrl}/services`,
-    //     async (url, { arg }: { arg: FormData }) => createService(url, arg)
-    // );
+    const { trigger } = useSWRMutation(
+        `${baseUrl}/services`,
+        async (url, { arg }: { arg: FormData }) => createService(url, arg)
+    );
 
-    // const handlesSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     const data = new FormData();
-    //     data.append('price', price);
-    //     data.append('title', title);
-    //     data.append('description', description);
+    const handlesSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const data = new FormData();
+        data.append('price', price);
+        data.append('title', title);
+        data.append('description', description);
 
-    //     photo?.forEach((file) => {
-    //         data.append('photos', file);
-    //     });
+        photo?.forEach((file) => {
+            data.append('photos', file);
+        });
 
-    //     try {
-    //         const result = await trigger(data);
-    //         if (result.data) {
-    //             await mutate();
-    //         }
-    //         close();
-    //     } 
-    //     catch (err) {
-    //         console.error('Ошибка при добавлении:', err);
-    //     }
-    // }
+        try {
+            const result = await trigger(data);
+            if (result.data) {
+                await mutate();
+            }
+            close();
+        } 
+        catch (err) {
+            console.error('Ошибка при добавлении:', err);
+        }
+    }
 
     const close = () => {
         setTitle('');
@@ -91,7 +91,7 @@ export default function AddService(props: TProps) {
                 <h3 className='modal-header'>Создать услугу</h3>
                 <form 
                     className='modal-form' 
-                    // onSubmit={handlesSubmit}
+                    onSubmit={handlesSubmit}
                 >
                     <span className='modal-label-text'>Заголовка</span>
                     <input type='text' className='modal-input' value={title} onChange={e => setTitle(e.target.value)}/>

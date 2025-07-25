@@ -6,9 +6,9 @@ import { IoMdClose } from "react-icons/io";
 import { useState } from 'react';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-// import useSWRMutation from 'swr/mutation';
-// import { baseUrl } from '@/constants';
-// import { signin } from '../api'
+import useSWRMutation from 'swr/mutation';
+import { baseUrl } from '@/constants';
+import { signin } from '../api'
 import { useGlobalContext } from '@/context/globalContext';
 
 const style = {
@@ -41,7 +41,7 @@ export default function Signin(props: TProps) {
     const { showSignin, setShowSignin, setShowSignup } = props;
     const [phoneNumber, setPhoneNumber] = useState<string>('');
     const [password, setPassword] = useState('')
-    const { setUser, clients } = useGlobalContext();
+    const { setUser } = useGlobalContext();
 
     const close = () => {
         setShowSignin(false);
@@ -49,39 +49,39 @@ export default function Signin(props: TProps) {
         setPassword('');
     }
 
-    // const { trigger, isMutating, error } = useSWRMutation(
-    //         `${baseUrl}/auth/login`,
-    //         async (url, { arg }: { arg: { phoneNumber: string, password: string } }) => signin(url, arg)
-    //     );
+    const { trigger, isMutating, error } = useSWRMutation(
+            `${baseUrl}/auth/login`,
+            async (url, { arg }: { arg: { phoneNumber: string, password: string } }) => signin(url, arg)
+        );
     
 
     const login = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(1);
+        // console.log(1);
         
-        const user = clients.find(item => item.phoneNumber === phoneNumber)
-        if (user) {
-            console.log(user);
+        // const user = clients.find(item => item.phoneNumber === phoneNumber)
+        // if (user) {
+        //     console.log(user);
             
-            localStorage.setItem('plidka_user', JSON.stringify(user));
-            setUser(user);
-            close();
+        //     localStorage.setItem('plidka_user', JSON.stringify(user));
+        //     setUser(user);
+        //     close();
+        // }
+        const data = {
+            phoneNumber,
+            password,
         }
-        // const data = {
-        //     phoneNumber,
-        //     password,
-        // }
-        // try {
-        //     const result = await trigger(data);
-        //     if (result.data){
-        //         localStorage.setItem('plidka_user', JSON.stringify(result.data));
-        //         setUser(result.data);
-        //         close();
-        //     }
-        // } 
-        // catch (err) {
-        //     console.error(err);
-        // }
+        try {
+            const result = await trigger(data);
+            if (result.data){
+                localStorage.setItem('plidka_user', JSON.stringify(result.data));
+                setUser(result.data);
+                close();
+            }
+        } 
+        catch (err) {
+            console.error(err);
+        }
     }
 
     return(

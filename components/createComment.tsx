@@ -5,12 +5,12 @@ import Modal from '@mui/material/Modal';
 import { IoMdClose } from "react-icons/io";
 import { useState } from 'react';
 import { Rating } from 'react-simple-star-rating'
-// import { useGlobalContext } from '@/context/globalContext';
-// import type { TComment } from "../types";
-// import useSWRMutation from 'swr/mutation';
-// import useSWR from 'swr';
-// import { baseUrl } from '@/constants';
-// import { createComment, getComments } from '../api'
+import { useGlobalContext } from '@/context/globalContext';
+import type { TComment } from "../types";
+import useSWRMutation from 'swr/mutation';
+import useSWR from 'swr';
+import { baseUrl } from '@/constants';
+import { createComment, getComments } from '../api'
 
 const style = {
     position: 'absolute',
@@ -38,12 +38,10 @@ type TProps = {
 
 export default function CreateComment(props: TProps) {
 
-    // const { user } = useGlobalContext();
+    const { user } = useGlobalContext();
     const { showCreateComment, setShowCreateComment } = props;
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState<string>('');
-
-    console.log(rating)
 
     const handleRating = (rate: number) => {
         setRating(rate)
@@ -55,31 +53,31 @@ export default function CreateComment(props: TProps) {
         setShowCreateComment(false);
     }
 
-    // const { mutate } = useSWR(`${baseUrl}/comments`, getComments);
+    const { mutate } = useSWR(`${baseUrl}/comments`, getComments);
 
-    // const { trigger } = useSWRMutation(
-    //     `${baseUrl}/comments`,
-    //     async (url, { arg }: { arg: TComment }) => createComment(url, arg)
-    // );
+    const { trigger } = useSWRMutation(
+        `${baseUrl}/comments`,
+        async (url, { arg }: { arg: TComment }) => createComment(url, arg)
+    );
 
-    // const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
-    //      e.preventDefault();
-    //     const data = {
-    //         description: comment,
-    //         rating,
-    //         fullName: user?.fullName || ''
-    //     }
-    //     try {
-    //         const result = await trigger(data);
-    //         if (result.data){
-    //             await mutate();
-    //         }
-    //         close();
-    //     } 
-    //     catch (err) {
-    //         console.error(err);
-    //     }
-    // }
+    const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
+         e.preventDefault();
+        const data = {
+            description: comment,
+            rating,
+            fullName: user?.fullName || ''
+        }
+        try {
+            const result = await trigger(data);
+            if (result.data){
+                await mutate();
+            }
+            close();
+        } 
+        catch (err) {
+            console.error(err);
+        }
+    }
 
     return (
         <Modal
@@ -94,7 +92,7 @@ export default function CreateComment(props: TProps) {
                 <form
                     className='modal-form'
                     style={{ alignItems: 'center' }}
-                // onSubmit={handleSubmit}
+                    onSubmit={handleSubmit}
                 >
                     <Rating onClick={handleRating} />
                     <textarea

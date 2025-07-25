@@ -5,10 +5,10 @@ import { IoMdClose } from "react-icons/io";
 import { useState } from 'react';
 import { MuiFileInput } from 'mui-file-input'
 import PhoneInput from 'react-phone-input-2'
-// import 'react-phone-input-2/lib/style.css'
-// import { sendOrder } from '../api';
-// import useSWRMutation from 'swr/mutation';
-// import { baseUrl } from '@/constants';
+import 'react-phone-input-2/lib/style.css'
+import { sendOrder } from '../api';
+import useSWRMutation from 'swr/mutation';
+import { baseUrl } from '@/constants';
 
 const style = {
   position: 'absolute',
@@ -41,28 +41,28 @@ export default function SendOrder(props: TProps) {
     const [phoneNumber, setPhoneNumber] = useState<string>('');
     const [square, setSquare] = useState<string>('');
 
-    // const { trigger, isMutating, error } = useSWRMutation(
-    //     `${baseUrl}/orders/create`,
-    //     async (url, { arg }: { arg: FormData }) => sendOrder(url, arg)
-    // );
+    const { trigger, isMutating, error } = useSWRMutation(
+        `${baseUrl}/orders/create`,
+        async (url, { arg }: { arg: FormData }) => sendOrder(url, arg)
+    );
 
-    // const handlesSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     const data = new FormData();
-    //     data.append('phoneNumber', phoneNumber);
-    //     data.append('square', square);
-    //     photo?.forEach((file) => {
-    //         data.append('images', file);
-    //     });
+    const handlesSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const data = new FormData();
+        data.append('phoneNumber', phoneNumber);
+        data.append('square', square);
+        photo?.forEach((file) => {
+            data.append('images', file);
+        });
 
-    //     try {
-    //         const result = await trigger(data);
-    //         close();
-    //     } 
-    //     catch (err) {
-    //         console.error('Ошибка при добавлении:', err);
-    //     }
-    // }
+        try {
+            const result = await trigger(data);
+            close();
+        } 
+        catch (err) {
+            console.error('Ошибка при добавлении:', err);
+        }
+    }
 
     const close = () => {
         setPhoneNumber('');
@@ -83,7 +83,7 @@ export default function SendOrder(props: TProps) {
                 <h3 className='modal-header'>Ваша Заявка</h3>
                 <form 
                     className='modal-form' 
-                    // onSubmit={handlesSubmit}
+                    onSubmit={handlesSubmit}
                 >
                     <span className='modal-label-text'>Площадь помещения ( кв. м. )</span>
                     <input type='number' className='modal-input' value={square} onChange={e => setSquare(e.target.value)}/>

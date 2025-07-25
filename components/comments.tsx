@@ -4,9 +4,9 @@ import { useGlobalContext } from '@/context/globalContext';
 import CreateComment from './createComment';
 import '../styles/comments.css';
 import { Rating } from 'react-simple-star-rating'
-// import useSWR from 'swr';
-// import { baseUrl } from '@/constants';
-// import { getComments } from '../api';
+import useSWR from 'swr';
+import { baseUrl } from '@/constants';
+import { getComments } from '../api';
 import type { TComment } from "../types";
 
 export default function Comments() {
@@ -15,15 +15,15 @@ export default function Comments() {
 
     const { comments } = useGlobalContext();
 
-    // const { data } = useSWR(`${baseUrl}/comments`, getComments);
+    const { data } = useSWR(`${baseUrl}/comments`, getComments);
 
     return(
         <div className='comments-container'>
             <h2>Отзывы клиентов</h2>
             <div className='comments-box'>
                 {
-                    // data?.data.map((item: TComment) => (
-                    comments.map((item: TComment) => (
+                    data?.data.map((item: TComment) => (
+                    // comments.map((item: TComment) => (
                         <div className='comment-box' key = {item.id}>
                             <span className='comment-user-name'>{item.fullName}</span>
                             <Rating initialValue={item.rating} className='comment-rating' size={20} readonly={true}/>

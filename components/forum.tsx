@@ -4,10 +4,10 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { IoMdClose } from "react-icons/io";
 import { RiSendPlaneFill } from "react-icons/ri";
-// import { submitForumNewData, getAllForum } from '../api';
-// import useSWRMutation from 'swr/mutation';
-// import useSWR from 'swr';
-// import { baseUrl } from '@/constants';
+import { submitForumNewData, getAllForum } from '../api';
+import useSWRMutation from 'swr/mutation';
+import useSWR from 'swr';
+import { baseUrl } from '@/constants';
 import { useGlobalContext } from '@/context/globalContext';
 import { useState, useRef, useEffect } from 'react';
 
@@ -45,8 +45,8 @@ export default function Forum(props: TProps) {
 
     const { showForum, setShowForum } = props;
     const { 
-        // user, 
-        forumData 
+        user, 
+        // forumData 
     } = useGlobalContext();
     const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -57,38 +57,38 @@ export default function Forum(props: TProps) {
 
     const [message, setMessage] = useState<string>('');
 
-    // const { data,mutate } = useSWR(`${baseUrl}/forum`, getAllForum);
+    const { data,mutate } = useSWR(`${baseUrl}/forum`, getAllForum);
 
-    // const { trigger } = useSWRMutation(
-    //     `${baseUrl}/forum/create`,
-    //     async (url, { arg }: { arg: TForum }) => submitForumNewData(url, arg)
-    // );
+    const { trigger } = useSWRMutation(
+        `${baseUrl}/forum/create`,
+        async (url, { arg }: { arg: TForum }) => submitForumNewData(url, arg)
+    );
 
-    // const handleSubmit = async () => {
-    //     if(message){
-    //         const data = {
-    //             userName: user?.fullName || '',
-    //             message
-    //         }
-    //         try {
-    //             const result = await trigger(data);
-    //             if (result.data) {
-    //                 await mutate();
-    //                 setMessage("")
-    //             }
-    //         }
-    //         catch (err) {
-    //             console.error(err);
-    //         }
-    //     }
-    // }
+    const handleSubmit = async () => {
+        if(message){
+            const data = {
+                userName: user?.fullName || '',
+                message
+            }
+            try {
+                const result = await trigger(data);
+                if (result.data) {
+                    await mutate();
+                    setMessage("")
+                }
+            }
+            catch (err) {
+                console.error(err);
+            }
+        }
+    }
 
     useEffect(() => {
         setTimeout(() => {
             bottomRef.current?.scrollIntoView({ behavior: 'auto' });
         }, 0);
         
-    }, [forumData, showForum]);
+    }, [data, showForum]);
     
     return (
         <Modal
@@ -114,8 +114,8 @@ export default function Forum(props: TProps) {
                     }}
                 >
                     {
-                        // data?.data.map((message: TForum) => {
-                        forumData.map((message: TForum) => {
+                        data?.data.map((message: TForum) => {
+                        // forumData.map((message: TForum) => {
                             return(
                                 <div className='forum-concret-message-box' key = {message.id}>
                                     <span>{message.userName}</span>
@@ -136,7 +136,7 @@ export default function Forum(props: TProps) {
                         onChange={e => setMessage(e.target.value)}
                     />
                     <RiSendPlaneFill
-                        // onClick={handleSubmit}
+                        onClick={handleSubmit}
                         style={{
                             color: 'white',
                             fontSize: '40px',

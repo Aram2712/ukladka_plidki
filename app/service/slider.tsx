@@ -10,6 +10,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Image from 'next/image';
 import BigSlider from '../../components/bigSlider';
+import { filesPath } from '../../constants';
 
 type TProps = {
     currentService: TService | null;
@@ -64,8 +65,8 @@ export default function Slider(props: TProps) {
                 className="mySwiper"
             >
                 {
-                    // item.imagesPaths.split(',').map((item: string, index: number) => (
-                    media.map((path: string, index: number) => (
+                    currentService.imagesPaths.split(',').map((item: string, index: number) => (
+                    // media.map((path: string, index: number) => (
                         <SwiperSlide key={index}>
                             <div
                                 className='slider-item-box'
@@ -73,10 +74,10 @@ export default function Slider(props: TProps) {
                                     position: 'relative'
                                 }}
                             >
-                                {getFileType(path) === 'image' ? (
+                                {getFileType(item) === 'image' ? (
                                     <Image
-                                        // src={`${filesPath}/${item.src}`}
-                                        src={path}
+                                        src={`${filesPath}/${item}`}
+                                        // src={path}
                                         alt={`Slide ${index}`}
                                         width={500}
                                         height={500}
@@ -89,11 +90,11 @@ export default function Slider(props: TProps) {
                                     (
                                         <div
                                             className="video-wrapper"
-                                            onClick={() => setSelectedGallery(media)}
+                                            onClick={() => setSelectedGallery(currentService.imagesPaths.split(','))}
                                         >
                                             <video
-                                                // src={`${filesPath}/${item.src}`}
-                                                src={path}
+                                                src={`${filesPath}/${item}`}
+                                                // src={path}
                                                 muted
                                                 autoPlay={true}
                                                 controls={false}

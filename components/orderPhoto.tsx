@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { IoMdClose } from "react-icons/io";
 import Image from 'next/image';
-// import { filesPath } from '@/constants';
+import { filesPath } from '@/constants';
 import { TOrder } from '@/types';
 
 const style = {
@@ -59,8 +59,8 @@ export default function OrderPhoto(props: TProps) {
                         imageList.map((item: string) => (
                             <Image
                                 key = {item}
-                                // src={`${filesPath}/${item}`}
-                                src={item}
+                                src={`${filesPath}/${item}`}
+                                // src={item}
                                 alt='Фото помещения'
                                 width={350}
                                 height={350}

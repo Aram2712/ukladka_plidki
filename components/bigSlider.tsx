@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper/types';
 import { Navigation, Pagination } from 'swiper/modules';
 import { ZoomableSlide } from './zoomable';
+import { filesPath } from '@/constants';
 import '../styles/bigSlider.css'
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -80,12 +81,12 @@ export default function BigSlider(props: TProps) {
                             {
                                 getFileType(url) === 'image' ?
                                     (
-                                        <ZoomableSlide src={url} ref = {swiperRef} />
+                                        <ZoomableSlide src={`${filesPath}/${url}`} ref = {swiperRef} />
                                     )
                                     :
                                     (
                                         <video
-                                            src={url}
+                                            src={`${filesPath}/${url}`}
                                             controls={true}
                                             // autoPlay = {false}
                                             // muted

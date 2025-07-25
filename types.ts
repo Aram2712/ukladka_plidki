@@ -7,7 +7,7 @@ export type TNavbar = {
 }
 
 export type TUser = {
-    id: number,
+    id?: number,
     fullName: string,
     phoneNumber: string,
     password: string,

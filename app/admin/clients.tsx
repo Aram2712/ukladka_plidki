@@ -1,18 +1,18 @@
 
 import '../../styles/admin.css';
 import { AiFillDelete } from "react-icons/ai";
-// import { getAllUsers } from '../../api';
-// import { baseUrl } from '@/constants';
-// import useSWR from 'swr';
+import { getAllUsers } from '../../api';
+import { baseUrl } from '@/constants';
+import useSWR from 'swr';
 import { TUser } from '@/types';
-// import { deleteUser } from '../../api';
-import { useGlobalContext } from '@/context/globalContext';
+import { deleteUser } from '../../api';
+// import { useGlobalContext } from '@/context/globalContext';
 
 function AdminClients() {
 
-    const { clients } = useGlobalContext()
+    // const { clients } = useGlobalContext()
 
-    // const { data, mutate } = useSWR(`${baseUrl}/auth/users`, getAllUsers);
+    const { data, mutate } = useSWR(`${baseUrl}/auth/users`, getAllUsers);
     
     function formatPhoneNumber(input: string): string {
         const cleaned = input.replace(/\D/g, '')
@@ -29,12 +29,12 @@ function AdminClients() {
         return `+7 (${code}) ${part1}-${part2}-${part3}`
     }
 
-    // const deleteCurrentUser = async (user: TUser) => {
-    //     if (user) {
-    //         const response = await deleteUser(`${baseUrl}/auth/users/${user.id}`);
-    //         if(response) await mutate();
-    //     }
-    // }
+    const deleteCurrentUser = async (user: TUser) => {
+        if (user) {
+            const response = await deleteUser(`${baseUrl}/auth/users/${user.id}`);
+            if(response) await mutate();
+        }
+    }
 
     return(
         <div className='admin-orders-container'>
@@ -48,8 +48,8 @@ function AdminClients() {
                 </thead>
                 <tbody>
                     {
-                        // data?.data.map((user:TUser, index: number) => (
-                        clients?.filter(client=>client.role !== 'admin').map((user:TUser, index: number) => (
+                        data?.data.map((user:TUser, index: number) => (
+                        // clients?.filter(client=>client.role !== 'admin').map((user:TUser, index: number) => (
                             <tr key = {index}>
                                 <td>{user.fullName}</td>
                                 <td>{formatPhoneNumber(user.phoneNumber)}</td>
@@ -57,7 +57,7 @@ function AdminClients() {
                                     <AiFillDelete 
                                         style = {{color: 'red', cursor: 'pointer'}}
                                         title='Удалить'
-                                        // onClick={() => deleteCurrentUser(user)}
+                                        onClick={() => deleteCurrentUser(user)}
                                     />
                                 </td>
                             </tr>

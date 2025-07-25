@@ -8,7 +8,7 @@ import { useEffect, useState, useRef } from 'react';
 import type { TUser } from '../../types';
 import { RiSendPlaneFill } from "react-icons/ri";
 import { useGlobalContext } from '@/context/globalContext';
-// import { useSocket } from '../../hooks/useSocket';
+import { useSocket } from '../../hooks/useSocket';
 
 const style = {
   position: 'fixed',
@@ -36,21 +36,21 @@ type TProps = {
     users: TUser[]
 }
 
-// type TMessage = {
-//     id: number
-//     receiverId: number | string
-//     senderId: number | string
-//     text: string
-// }
+type TMessage = {
+    id: number
+    receiverId: number | string
+    senderId: number | string
+    text: string
+}
 
 export default function AdminMessenger(props: TProps) {
 
     const { 
         showMessenger, 
         setShowMessenger, 
-        // users 
+        users 
     } = props;
-    const {messages, clients} = useGlobalContext();
+    const {clients} = useGlobalContext();
     const bottomRef = useRef<HTMLDivElement>(null);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -58,7 +58,7 @@ export default function AdminMessenger(props: TProps) {
     const [activeUserId, setActiveuserId] = useState<string>('');
 
     const [msg, setMsg] = useState('')
-    // const { sendMessage, messages } = useSocket('admin', activeUserId)
+    const { sendMessage, messages } = useSocket('admin', activeUserId)
     console.log(concretUserMessages);
     
     function splitMessagesByUser<T extends {senderId: string, receiverId:string}>(messages: T[], currentUserId: string): T[][] {
@@ -83,14 +83,14 @@ export default function AdminMessenger(props: TProps) {
 
     console.log(groupedMessages);
 
-    // const handleSend = () => {
-    //     const data = {
-    //         msg,
-    //         fullName: 'admin'
-    //     }
-    //     sendMessage(data)
-    //     setMsg('')
-    // }
+    const handleSend = () => {
+        const data = {
+            msg,
+            fullName: 'admin'
+        }
+        sendMessage(data)
+        setMsg('')
+    }
 
     const close = () => {
         setShowMessenger(false);
@@ -219,7 +219,7 @@ export default function AdminMessenger(props: TProps) {
                                 borderRadius: '20%',
 
                             }}
-                            // onClick={handleSend}
+                            onClick={handleSend}
                         />
                     </div>
                 }

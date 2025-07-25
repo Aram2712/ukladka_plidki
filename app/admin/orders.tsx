@@ -1,19 +1,19 @@
 
 import '../../styles/admin.css';
 import { AiFillDelete } from "react-icons/ai";
-// import { getOrders } from '../../api';
-// import useSWR from 'swr';
-// import { baseUrl } from '@/constants';
+import { getOrders } from '../../api';
+import useSWR from 'swr';
+import { baseUrl } from '@/constants';
 import type { TOrder } from '../../types';
 import OrderPhoto from '../../components/orderPhoto';
 import { useState } from 'react';
-import { useGlobalContext } from '@/context/globalContext';
+// import { useGlobalContext } from '@/context/globalContext';
 
 function AdminOrders() {
 
-    const {orders} = useGlobalContext();
+    // const {orders} = useGlobalContext();
 
-    // const { data } = useSWR(`${baseUrl}/orders`, getOrders);
+    const { data } = useSWR(`${baseUrl}/orders`, getOrders);
     
     const [showOrderPhoto, setShowOrderPhoto] = useState<boolean>(false);
     const [concretOrder, setConcretOrder] = useState<TOrder | null>(null);
@@ -51,8 +51,8 @@ function AdminOrders() {
                 </thead>
                 <tbody>
                     {
-                        // data?.data.map((item: TOrder) => (
-                        orders.map((item: TOrder) => (
+                        data?.data.map((item: TOrder) => (
+                        // orders.map((item: TOrder) => (
                             <tr key = {item.id}>
                                 <td>{item.square}</td>
                                 <td>{formatPhoneNumber(item.phoneNumber)}</td>

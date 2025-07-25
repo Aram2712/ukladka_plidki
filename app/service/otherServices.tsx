@@ -9,9 +9,9 @@ import { useState } from 'react';
 import Image from "next/image";
 import Comments from '../../components/comments';
 import FooterBox from '../../components/footerBox';
-// import { baseUrl, filesPath, localFilesPath } from '@/constants';
-// import { getServices } from '../../api';
-// import useSWR from 'swr';
+import { baseUrl, filesPath, localFilesPath } from '@/constants';
+import { getServices } from '../../api';
+import useSWR from 'swr';
 import { useGlobalContext } from '@/context/globalContext';
 import type { TService } from '../../types'
 import VideoPlayer from '../../components/video';
@@ -26,12 +26,12 @@ export default function OtherServices(props: TProps) {
 
     const { setCurrentService } = props;
 
-    const { services } = useGlobalContext();
+    // const { services } = useGlobalContext();
 
     const [selectedGallery, setSelectedGallery] = useState<string[] | null>(null);
     const userInteractedRef = useRef(false);
 
-    // const { data } = useSWR(`${baseUrl}/services`, getServices);
+    const { data } = useSWR(`${baseUrl}/services`, getServices);
     function getFileType(filename: string) {
         const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
         const videoExtensions = ['mp4', 'mov', 'avi', 'mkv', 'webm'];
@@ -49,8 +49,8 @@ export default function OtherServices(props: TProps) {
     return (
         <div className='sliders-container'>
             {
-                // data?.data.map((item: TService, index: number) => (
-                services.map((item: TService, index: number) => (
+                data?.data.map((item: TService, index: number) => (
+                // services.map((item: TService, index: number) => (
                     <div className='service-item-container' key={index}>
                         <Swiper
                             navigation={true}
