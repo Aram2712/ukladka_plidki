@@ -7,7 +7,7 @@ import { IoMdClose } from "react-icons/io";
 import { useEffect, useState, useRef } from 'react';
 import type { TUser } from '../../types';
 import { RiSendPlaneFill } from "react-icons/ri";
-import { useGlobalContext } from '@/context/globalContext';
+// import { useGlobalContext } from '@/context/globalContext';
 import { useSocket } from '../../hooks/useSocket';
 
 const style = {
@@ -40,9 +40,11 @@ export default function AdminMessenger(props: TProps) {
 
     const {
         showMessenger,
-        setShowMessenger
+        setShowMessenger,
+        users
     } = props;
-    const { clients } = useGlobalContext();
+    
+    // const { clients } = useGlobalContext();
     const bottomRef = useRef<HTMLDivElement>(null);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -153,7 +155,7 @@ export default function AdminMessenger(props: TProps) {
                 >
                     {
                         !concretUserMessages ?
-                            clients?.filter((item) => item.role !== 'admin')
+                            users?.filter((item) => item.role !== 'admin')
                                 .map((user, index) => (
                                     <div
                                         key={index}

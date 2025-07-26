@@ -22,6 +22,7 @@ function AdminClients() {
         }
 
         const code = cleaned.slice(1, 4)
+        
         const part1 = cleaned.slice(4, 7)
         const part2 = cleaned.slice(7, 9)
         const part3 = cleaned.slice(9, 11)

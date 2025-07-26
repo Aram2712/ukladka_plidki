@@ -10,8 +10,8 @@ type ContextType = {
     setAdminHeader: (bar: Array<TNavbar>) => void,
     user: TUser | null,
     setUser: (user: TUser | null) => void ,
-    clients: TUser[],
-    setClients: (users: TUser[]) => void,
+    // clients: TUser[],
+    // setClients: (users: TUser[]) => void,
     services:TService[] 
     setServices: (services: TService[]) => void,
     comments: TComment[];
@@ -66,29 +66,29 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
         }
     ])
 
-    const [clients, setClients] = useState([
-        {
-            id: 2,
-            fullName: 'Игорь Крутой',
-            phoneNumber: '72222222222',
-            password: '2222',
-            role: 'user'
-        },
-        {
-            id: 1,
-            fullName: 'Гор Мкртчян',
-            phoneNumber: '71111111111',
-            password: '1111',
-            role: 'admin'
-        },
-        {
-            id: 3,
-            fullName: 'Наталья Сергеева',
-            phoneNumber: '73333333333',
-            password: '3333',
-            role: 'user'
-        }
-    ])
+    // const [clients, setClients] = useState([
+    //     {
+    //         id: 2,
+    //         fullName: 'Игорь Крутой',
+    //         phoneNumber: '72222222222',
+    //         password: '2222',
+    //         role: 'user'
+    //     },
+    //     {
+    //         id: 1,
+    //         fullName: 'Гор Мкртчян',
+    //         phoneNumber: '71111111111',
+    //         password: '1111',
+    //         role: 'admin'
+    //     },
+    //     {
+    //         id: 3,
+    //         fullName: 'Наталья Сергеева',
+    //         phoneNumber: '73333333333',
+    //         password: '3333',
+    //         role: 'user'
+    //     }
+    // ])
 
     const [services, setServices] = useState<TService[]> ([
         {
@@ -237,7 +237,6 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
                 setUser,
                 adminHeader, 
                 setAdminHeader,
-                clients, setClients,
                 services, setServices,
                 comments, setComments,
                 orders, setOrders,
