@@ -9,10 +9,9 @@ import { useState } from 'react';
 import Image from "next/image";
 import Comments from '../../components/comments';
 import FooterBox from '../../components/footerBox';
-import { baseUrl, filesPath, localFilesPath } from '@/constants';
+import { baseUrl, filesPath } from '@/constants';
 import { getServices } from '../../api';
 import useSWR from 'swr';
-import { useGlobalContext } from '@/context/globalContext';
 import type { TService } from '../../types'
 import VideoPlayer from '../../components/video';
 import BigSlider from '@/components/bigSlider';
@@ -70,8 +69,8 @@ export default function OtherServices(props: TProps) {
                                         >
                                             {getFileType(path) === 'image' ? (
                                                 <Image
-                                                    // src={`${filesPath}/${item.src}`}
-                                                    src={path}
+                                                    src={`${filesPath}/${item}`}
+                                                    // src={path}
                                                     alt={`Slide ${index}`}
                                                     width={500}
                                                     height={500}

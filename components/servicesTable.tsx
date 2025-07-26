@@ -6,14 +6,14 @@ import type { TService } from '../types';
 import { baseUrl } from '@/constants';
 import { getServices } from '../api';
 import useSWR from 'swr';
-import { useGlobalContext } from '@/context/globalContext';
+// import { useGlobalContext } from '@/context/globalContext';
 
 
 export default function ServicesTable() {
 
     const currentYear = new Date().getFullYear();
 
-    const { services } = useGlobalContext()
+    // const { services } = useGlobalContext()
 
     const { data } = useSWR(`${baseUrl}/services`, getServices);
 

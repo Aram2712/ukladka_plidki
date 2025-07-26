@@ -7,6 +7,7 @@ type TProps = {
 
 const VideoPlayer = ({ src, userInteractedRef }: TProps) => {
     const videoRef = useRef<HTMLVideoElement>(null);
+    
     const [isVisible, setIsVisible] = useState(false);
     const [showControls, setShowControls] = useState(true);
 

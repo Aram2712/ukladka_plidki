@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import { useGlobalContext } from '@/context/globalContext';
+// import { useGlobalContext } from '@/context/globalContext';
 import CreateComment from './createComment';
 import '../styles/comments.css';
 import { Rating } from 'react-simple-star-rating'
@@ -13,7 +13,7 @@ export default function Comments() {
 
     const [showCreateComment, setShowCreateComment] = useState<boolean>(false); 
 
-    const { comments } = useGlobalContext();
+    // const { comments } = useGlobalContext();
 
     const { data } = useSWR(`${baseUrl}/comments`, getComments);
 
