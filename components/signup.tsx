@@ -106,7 +106,10 @@ export default function SignUp(props: TProps) {
                         inputClass='modal-input'
                         country={'ru'}
                         value={phoneNumber}
-                        onChange={phone => {setPhoneNumber(phone), setError(false)}}
+                        onChange={phone => { 
+                            setPhoneNumber(phone); 
+                            setError(false)
+                        }}
                         inputProps={{
                             name: 'phone',
                             required: true
