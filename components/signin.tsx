@@ -10,6 +10,7 @@ import useSWRMutation from 'swr/mutation';
 import { baseUrl } from '@/constants';
 import { signin } from '../api'
 import { useGlobalContext } from '@/context/globalContext';
+import Loading from "./loading";
 
 const style = {
   position: 'absolute',
@@ -40,16 +41,18 @@ export default function Signin(props: TProps) {
 
     const { showSignin, setShowSignin, setShowSignup } = props;
     const [phoneNumber, setPhoneNumber] = useState<string>('');
-    const [password, setPassword] = useState('')
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(false);
     const { setUser } = useGlobalContext();
 
     const close = () => {
         setShowSignin(false);
         setPhoneNumber('');
         setPassword('');
+        setError(false)
     }
 
-    const { trigger } = useSWRMutation(
+    const { trigger, isMutating } = useSWRMutation(
             `${baseUrl}/auth/login`,
             async (url, { arg }: { arg: { phoneNumber: string, password: string } }) => signin(url, arg)
         );
@@ -73,10 +76,15 @@ export default function Signin(props: TProps) {
         }
         try {
             const result = await trigger(data);
+            console.log(result);
+            
             if (result.data){
                 localStorage.setItem('plidka_user', JSON.stringify(result.data));
                 setUser(result.data);
                 close();
+            }
+            else {
+                setError(true);
             }
         } 
         catch (err) {
@@ -89,6 +97,7 @@ export default function Signin(props: TProps) {
             open={showSignin}
         >
             <Box sx = {style}>
+                <Loading loading = {isMutating}/>
                 <IoMdClose 
                     className='close-modal-icon'
                     onClick={close}
@@ -109,6 +118,12 @@ export default function Signin(props: TProps) {
                     />
                     <span className='modal-label-text'>Пароль</span>
                     <input type='password' className='modal-input' value={password} onChange={e => setPassword(e.target.value)}/>
+                    {
+                        error &&
+                        <span className='signinError'>
+                            Не удалось выполнить вход.<br/> Проверьте данные.
+                        </span>
+                    }
                     <input type='submit' className='modal-button' value = 'Войти'/>
                     <p 
                         className='model-register-link'

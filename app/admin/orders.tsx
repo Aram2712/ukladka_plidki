@@ -8,13 +8,14 @@ import { useState } from 'react';
 import { deleteOrder } from '../../api';
 import OrderPhoto from '../../components/orderPhoto';
 import useSWR from 'swr';
+import Loading from '@/components/loading';
 // import { useGlobalContext } from '@/context/globalContext';
 
 function AdminOrders() {
 
     // const {orders} = useGlobalContext();
 
-    const { data, mutate } = useSWR(`${baseUrl}/orders`, getOrders);
+    const { data, mutate, isLoading } = useSWR(`${baseUrl}/orders`, getOrders);
 
     const [showOrderPhoto, setShowOrderPhoto] = useState<boolean>(false);
     const [concretOrder, setConcretOrder] = useState<TOrder | null>(null);
@@ -41,13 +42,14 @@ function AdminOrders() {
 
     const deleteCurrentOrder = async (item: TOrder) => {
         if (item) {
-            const response = await deleteOrder(`${baseUrl}/orders/${item.id}`);
+            const response = await deleteOrder(`${baseUrl}/orders/delete/${item.id}`);
             if (response) await mutate();
         }
     }
 
     return (
         <div className='admin-orders-container'>
+            <Loading  loading = {isLoading}/>
             <table className='admin-order-table'>
                 <thead>
                     <tr>

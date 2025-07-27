@@ -9,6 +9,7 @@ import ConcretService from '../../components/cuncretService'
 import AddService from '../../components/addService';
 import useSWR from 'swr';
 import { deleteService } from '../../api';
+import  Loading from "../../components/loading"
 // import { useGlobalContext } from '@/context/globalContext';
 
 function AdminServices() {
@@ -19,7 +20,7 @@ function AdminServices() {
 
     // const {services} = useGlobalContext();
 
-    const { data, mutate } = useSWR(`${baseUrl}/services`, getServices);
+    const { data, mutate, isLoading } = useSWR(`${baseUrl}/services`, getServices);
 
     const showCurrentService = (item: TService) => {
         setConcretService(item);
@@ -35,6 +36,7 @@ function AdminServices() {
 
     return (
         <div className='admin-orders-container'>
+            <Loading loading = {isLoading}/>
             <table className='admin-order-table'>
                 <thead>
                     <tr>

@@ -6,13 +6,11 @@ import { baseUrl } from '@/constants';
 import useSWR from 'swr';
 import { TUser } from '@/types';
 import { deleteUser } from '../../api';
-// import { useGlobalContext } from '@/context/globalContext';
+import Loading from '@/components/loading';
 
 function AdminClients() {
 
-    // const { clients } = useGlobalContext()
-
-    const { data, mutate } = useSWR(`${baseUrl}/auth/users`, getAllUsers);
+    const { data, mutate, isLoading } = useSWR(`${baseUrl}/auth/users`, getAllUsers);
     
     function formatPhoneNumber(input: string): string {
         const cleaned = input.replace(/\D/g, '')
@@ -39,6 +37,7 @@ function AdminClients() {
 
     return(
         <div className='admin-orders-container'>
+            <Loading loading = {isLoading}/> 
             <table className='admin-order-table'>
                 <thead>
                     <tr>

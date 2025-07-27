@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { MuiFileInput } from 'mui-file-input'
 import { createService, getServices } from '../api';
 import { baseUrl } from '@/constants';
+import Loading from '../components/loading';
 import useSWRMutation from 'swr/mutation';
 import useSWR from 'swr';
 
@@ -41,9 +42,9 @@ export default function AddService(props: TProps) {
     const [description, setDescription] = useState<string>('');
     const [price, setPrice] = useState<string>('')
 
-    const { mutate } = useSWR(`${baseUrl}/services`, getServices);
+    const { mutate, isLoading } = useSWR(`${baseUrl}/services`, getServices);
 
-    const { trigger } = useSWRMutation(
+    const { trigger, isMutating } = useSWRMutation(
         `${baseUrl}/services`,
         async (url, { arg }: { arg: FormData }) => createService(url, arg)
     );
@@ -84,6 +85,7 @@ export default function AddService(props: TProps) {
             open={showAddService}
         >
             <Box sx={style}>
+                <Loading loading = {isLoading || isMutating}/>
                 <IoMdClose
                     className='close-modal-icon'
                     onClick={close}

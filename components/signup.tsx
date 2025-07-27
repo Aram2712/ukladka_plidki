@@ -10,6 +10,7 @@ import { signup } from '../api';
 import useSWRMutation from 'swr/mutation';
 import { TUser } from '@/types';
 import { baseUrl } from '@/constants';
+import Loading from "./loading";
 
 const style = {
     position: 'absolute',
@@ -46,15 +47,17 @@ export default function SignUp(props: TProps) {
     const [fullName, setFullName] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [phoneNumber, setPhoneNumber] = useState<string>('');
+    const [error, setError] = useState(false);
 
     const close = () => {
         setFullName('');
         setPassword('');
         setPhoneNumber('');
+        setError(false);
         setShowSignup(false);
     }
 
-    const { trigger } = useSWRMutation(
+    const { trigger, isMutating } = useSWRMutation(
         `${baseUrl}/auth/signup`,
         async (url, { arg }: { arg: TUser }) => signup(url, arg)
     );
@@ -69,9 +72,13 @@ export default function SignUp(props: TProps) {
         }
         try {
             const result = await trigger(data);
-            if (result) {
+            
+            if (result.data) {
                 setShowSignin(true);
                 close()
+            }
+            else {
+                setError(true);
             }
         }
         catch (err) {
@@ -84,6 +91,7 @@ export default function SignUp(props: TProps) {
             open={showSignup}
         >
             <Box sx={style}>
+                <Loading loading = {isMutating}/>
                 <IoMdClose
                     className='close-modal-icon'
                     onClick={close}
@@ -98,7 +106,7 @@ export default function SignUp(props: TProps) {
                         inputClass='modal-input'
                         country={'ru'}
                         value={phoneNumber}
-                        onChange={phone => setPhoneNumber(phone)}
+                        onChange={phone => {setPhoneNumber(phone), setError(false)}}
                         inputProps={{
                             name: 'phone',
                             required: true
@@ -109,6 +117,12 @@ export default function SignUp(props: TProps) {
                     <input type='text' className='modal-input' value={fullName} onChange={e => setFullName(e.target.value)} />
                     <span className='modal-label-text'>Пароль</span>
                     <input type='password' className='modal-input' value={password} onChange={e => setPassword(e.target.value)} />
+                    {
+                        error &&
+                        <span className='signinError'>
+                            Номер уже привязан к другому аккаунту.
+                        </span>
+                    }
                     <input type='submit' style={{ marginBottom: '15px' }} className='modal-button' value='Создать' />
                 </form>
             </Box>
