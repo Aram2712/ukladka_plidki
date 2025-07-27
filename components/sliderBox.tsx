@@ -47,6 +47,9 @@ export default function SliderBox() {
         return 'unknown';
     }
 
+    console.log(data);
+    
+
     return (
         <div className='sliders-container'>
             {
@@ -64,14 +67,17 @@ export default function SliderBox() {
                         >
                             {
                                 // item.imagesPaths.split(',').map((item: string, index: number) => (
-                                item.imagesPaths.split(',').map((path: string, index: number) => (
+                                item.imagesPaths.split(',').map((path: string, index: number) => {
+                                
+                                    return(
+                                
                                     <SwiperSlide key={index}>
                                         <div
                                             className='slider-item-box'
                                         >
                                             {getFileType(path) === 'image' ? (
                                                 <Image
-                                                    src={`${filesPath}/${item}`}
+                                                    src={`${filesPath}/${path}`}
                                                     // src={path}
                                                     alt={`Slide ${index}`}
                                                     width={500}
@@ -85,12 +91,12 @@ export default function SliderBox() {
                                                 <div className="video-wrapper"
                                                 // onClick={() => setSelectedGallery(item.imagesPaths.split(','))}
                                                 >
-                                                    <VideoPlayer src={`${filesPath}/${item}`} userInteractedRef={userInteractedRef} />
+                                                    <VideoPlayer src={`${filesPath}/${path}`} userInteractedRef={userInteractedRef} />
                                                 </div>
                                             )}
                                         </div>
                                     </SwiperSlide>
-                                ))
+                                )})
                             }
                         </Swiper>
                         <div className='service-item-description-button-box'>

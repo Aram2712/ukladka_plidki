@@ -5,11 +5,12 @@ const nextConfig: NextConfig = {
   transpilePackages: ['mui-file-input'],
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'ukladka-plitki.ru',
-      }
-    ],
+    {
+      protocol: 'https',
+      hostname: 'ukladka-plitki.ru',
+      pathname: '/uploads/**',
+    },
+  ],
   },
   /* config options here */
 };

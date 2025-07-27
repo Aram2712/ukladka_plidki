@@ -69,7 +69,7 @@ export default function OtherServices(props: TProps) {
                                         >
                                             {getFileType(path) === 'image' ? (
                                                 <Image
-                                                    src={`${filesPath}/${item}`}
+                                                    src={`${filesPath}/${path}`}
                                                     // src={path}
                                                     alt={`Slide ${index}`}
                                                     width={500}
