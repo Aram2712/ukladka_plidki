@@ -1,7 +1,6 @@
 
 import ShadowBox from '../components/shadowBox';
 import SliderBox from '../components/sliderBox';
-import Loading from '@/components/loading';
 
 export default function Home() {
     return (
