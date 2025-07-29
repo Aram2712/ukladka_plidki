@@ -27,14 +27,6 @@ export default function AdminPage() {
             <AdminHeader />
             {
                 activeHeader?.title === "Заявки" ?
-<<<<<<< HEAD
-                    <AdminOrders />
-                    :
-                    activeHeader?.title === "Услуги" ?
-                        <AdminServices />
-                        :
-                        <AdminUsers />
-=======
                 <AdminOrders/>
                 :
                 activeHeader?.title === "Услуги" ?
@@ -44,7 +36,6 @@ export default function AdminPage() {
                 <AdminPriceList/>
                 :
                 <AdminUsers/>
->>>>>>> 6cf27d0438934eb3990268c95280a03a4980114c
             }
             <SiMessenger className='admin-messenger-icon' onClick={() => setShowMessenger(true)} />
             <AdminMessenger
