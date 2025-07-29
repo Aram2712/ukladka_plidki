@@ -62,6 +62,16 @@ export default function Messenger(props: TProps) {
     }
 
     useEffect(() => {
+        if (showMessenger) {
+            const timeout = setTimeout(() => {
+                bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+            return () => clearTimeout(timeout);
+        }
+    }, [showMessenger]);
+
+    // Скролл при получении новых сообщений
+    useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 

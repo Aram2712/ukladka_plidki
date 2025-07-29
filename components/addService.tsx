@@ -39,6 +39,7 @@ export default function AddService(props: TProps) {
 
     const [photo, setPhoto] = useState<File[] | undefined>();
     const [title, setTitle] = useState<string>('');
+    const [header, setHeader] = useState('');
     const [description, setDescription] = useState<string>('');
     const [price, setPrice] = useState<string>('')
 
@@ -54,6 +55,7 @@ export default function AddService(props: TProps) {
         const data = new FormData();
         data.append('price', price);
         data.append('title', title);
+        data.append('header', header);
         data.append('description', description);
 
         photo?.forEach((file) => {
@@ -75,6 +77,7 @@ export default function AddService(props: TProps) {
     const close = () => {
         setTitle('');
         setPrice('');
+        setHeader('');
         setDescription('');
         setPhoto(undefined);
         setShowAddService(false);
@@ -96,6 +99,8 @@ export default function AddService(props: TProps) {
                     onSubmit={handlesSubmit}
                 >
                     <span className='modal-label-text'>Заголовка</span>
+                    <input type='text' className='modal-input' value={header} onChange={e => setHeader(e.target.value)} />
+                    <span className='modal-label-text'>Название</span>
                     <input type='text' className='modal-input' value={title} onChange={e => setTitle(e.target.value)} />
                     <span className='modal-label-text'>Описание</span>
                     <textarea

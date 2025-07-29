@@ -2,9 +2,9 @@
 import '../styles/services.css';
 import { IoCall } from "react-icons/io5";
 import { BsWhatsapp } from "react-icons/bs"
-import type { TService } from '../types';
+import type { TPrice } from '../types';
 import { baseUrl } from '@/constants';
-import { getServices } from '../api';
+import { getAllPrices } from '../api';
 import useSWR from 'swr';
 // import { useGlobalContext } from '@/context/globalContext';
 
@@ -15,12 +15,12 @@ export default function ServicesTable() {
 
     // const { services } = useGlobalContext()
 
-    const { data } = useSWR(`${baseUrl}/services`, getServices);
+    const { data } = useSWR(`${baseUrl}/priceList`, getAllPrices);
 
     return(
         <div className='services-table'>
             {
-                data?.data.map((item: TService) => (
+                data?.data.map((item: TPrice) => (
                 // services.map((item: TService) => (
                     <div className='service-elem-container' key = {item.id}>
                         <span>{item.title}</span>

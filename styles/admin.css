@@ -103,7 +103,7 @@
         padding: 100px 50px;
     }
     .admin-header-item, .admin-order-table>thead>tr>td {
-        font-size: 18px;
+        font-size: 16px;
     }
     .admin-order-table>tbody>tr>td {
         font-size: 14px;
@@ -116,7 +116,7 @@
     }
 
     .admin-header-item, .admin-order-table>thead>tr>td {
-        font-size: 16px;
+        font-size: 14px;
     }
     .admin-order-table>tbody>tr>td {
         font-size: 13px;
@@ -125,6 +125,6 @@
         display: none;
     }
     .admin-header-item  {
-        margin: 0 15px;
+        margin: 0 8px;
     }
 }

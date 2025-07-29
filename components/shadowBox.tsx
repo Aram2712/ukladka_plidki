@@ -6,6 +6,7 @@ import { GrUserExpert } from "react-icons/gr";
 import { TbPuzzleFilled } from "react-icons/tb";
 import SendOrder from './sendOrder';
 import { useState } from 'react';
+import CircleSlider from '../components/circleSlider'
 
 export default function ShadowBox() {
 
@@ -95,6 +96,7 @@ export default function ShadowBox() {
                         Оставить заявку онлайн
                     </button>
                 </div>
+                <CircleSlider/>
             </div>
             <SendOrder
                 showOrder = { showOrder }

@@ -40,6 +40,7 @@ function AdminServices() {
             <table className='admin-order-table'>
                 <thead>
                     <tr>
+                        <td>Заголовка</td>
                         <td>Имя услуги</td>
                         <td>Удалить</td>
                     </tr>
@@ -49,7 +50,8 @@ function AdminServices() {
                         data?.data.map((item: TService) => (
                             // services.map((item: TService) => (
                             <tr key={item.id}>
-                                <td style={{ cursor: 'pointer' }} onClick={() => showCurrentService(item)}>{item.title}</td>
+                                <td style={{ cursor: 'pointer' }} onClick={() => showCurrentService(item)}>{item.header}</td>
+                                <td>{item.title}</td>
                                 <td>
                                     <AiFillDelete
                                         style={{ color: 'red', cursor: 'pointer' }}
