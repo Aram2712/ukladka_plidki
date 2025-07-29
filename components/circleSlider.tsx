@@ -52,8 +52,8 @@ export default function CircleSlider() {
                             <Image
                                 width={105}
                                 height={105}
-                                // src={`${filesPath}/${item.imagesPaths?.split(',')[0]}`}
-                                src={nkar}
+                                src={`${filesPath}/${item.imagesPaths?.split(',')[0]}`}
+                                // src={nkar}
                                 alt='carusel image'
                                 style={{
                                     borderRadius: '50%'
