@@ -5,6 +5,7 @@ import AdminHeader from '@/components/adminHeader';
 import AdminOrders from './orders';
 import AdminServices from './adminServices';
 import AdminUsers from './clients';
+import AdminPriceList from './priceList'
 import { useGlobalContext } from '@/context/globalContext';
 import { SiMessenger } from "react-icons/si";
 import { useState } from 'react';
@@ -30,6 +31,9 @@ export default function AdminPage() {
                 :
                 activeHeader?.title === "Услуги" ?
                 <AdminServices/>
+                :
+                activeHeader?.title === "Прайсы" ?
+                <AdminPriceList/>
                 :
                 <AdminUsers/>
             }

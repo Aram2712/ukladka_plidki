@@ -37,6 +37,7 @@ export type TOrder = {
 export type TService = {
     id: number,
     title: string;
+    header: string;
     description: string;
     price: string;
     imagesPaths: string;
@@ -46,4 +47,10 @@ export type TForum = {
     id: number,
     userName: string,
     message: string
+}
+
+export type TPrice = {
+    id?: number,
+    title: string,
+    price: string
 }

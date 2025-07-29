@@ -36,15 +36,15 @@ type TProps = {
 
 export default function Messenger(props: TProps) {
 
-    const { 
-        user, 
+    const {
+        user,
         // messages 
     } = useGlobalContext()
 
     const bottomRef = useRef<HTMLDivElement>(null);
     const { showMessenger, setShowMessenger } = props;
     const receiverId = 'admin';
-    
+
     const [msg, setMsg] = useState('')
     const { sendMessage, messages } = useSocket(user?.id?.toString() || '', receiverId)
 
@@ -62,17 +62,27 @@ export default function Messenger(props: TProps) {
     }
 
     useEffect(() => {
+        if (showMessenger) {
+            const timeout = setTimeout(() => {
+                bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+            return () => clearTimeout(timeout);
+        }
+    }, [showMessenger]);
+
+    // Скролл при получении новых сообщений
+    useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
-    
-    return(
+
+    return (
         <Modal
             open={showMessenger}
         >
-            <Box sx = {style}>
-                <IoMdClose 
+            <Box sx={style}>
+                <IoMdClose
                     className='close-modal-icon'
-                    style={{ color: 'white'}}
+                    style={{ color: 'white' }}
                     onClick={close}
                 />
                 <h3 className='messenger-header'>Чат с админом</h3>
@@ -88,32 +98,32 @@ export default function Messenger(props: TProps) {
                 >
                     {
                         messages?.map(item => (
-                            <div 
-                                key = {item.id}
+                            <div
+                                key={item.id}
                                 className='current-message-box'
                                 style={{
                                     justifyContent: item.receiverId !== 'admin' ? 'flex-start' : 'flex-end'
                                 }}
                             >
-                                <span 
+                                <span
                                     style={{
-                                        color:'white',
+                                        color: 'white',
                                         textAlign: item.receiverId !== 'admin' ? 'left' : 'right',
-                                        background: item.receiverId !== 'admin' ? '#343434' : '#405DE6' 
+                                        background: item.receiverId !== 'admin' ? '#343434' : '#405DE6'
                                     }}
                                 >
                                     {item.text}
                                 </span>
-                                
+
                             </div>
                         ))
                     }
                     <div ref={bottomRef} />
                 </div>
                 <div className='messenger-new-message-box'>
-                    <input 
-                        type='text' 
-                        className='new-message-input' 
+                    <input
+                        type='text'
+                        className='new-message-input'
                         placeholder='Message'
                         value={msg}
                         onChange={e => setMsg(e.target.value)}
@@ -123,9 +133,9 @@ export default function Messenger(props: TProps) {
                             color: 'white',
                             fontSize: '32px',
                             padding: '5px',
-                            marginLeft:'10px',
+                            marginLeft: '10px',
                             cursor: 'pointer',
-                            background:'#405DE6',
+                            background: '#405DE6',
                             borderRadius: '20%',
 
                         }}

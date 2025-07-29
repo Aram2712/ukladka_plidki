@@ -59,6 +59,12 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
             path: ''
         },
         {
+            id: 5,
+            title: 'Прайсы',
+            isActive: false,
+            path: ''
+        },
+        {
             id: 4,
             title: 'Клиенты',
             isActive: false,

@@ -13,7 +13,7 @@ import { getServices } from '../api';
 import useSWR from 'swr';
 import Link from 'next/link';
 // import { useGlobalContext } from '@/context/globalContext';
-import type { TService } from '../types'
+import type { TService } from '../types';
 import VideoPlayer from './video';
 import BigSlider from './bigSlider';
 import { useState, useRef, useEffect } from 'react';
@@ -27,6 +27,8 @@ export default function SliderBox() {
 
     const { data } = useSWR(`${baseUrl}/services`, getServices);
 
+   
+
     // const media = [
     //     'https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668617_w-819x1024-1.webp',
     //     'https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668618_w-819x1024-1.webp',
@@ -35,7 +37,7 @@ export default function SliderBox() {
     // ]
 
     useEffect(() => {
-        if (data) setDisplayServices(data.data.reverse())
+        if (data) setDisplayServices(data.data.reverse());
     }, [data])
 
     function getFileType(filename: string) {
@@ -51,6 +53,7 @@ export default function SliderBox() {
 
         return 'unknown';
     }
+    console.log(displayServices);
     
     return (
         <div className='sliders-container'>
@@ -69,7 +72,7 @@ export default function SliderBox() {
                         >
                             {
                                 // item.imagesPaths.split(',').map((item: string, index: number) => (
-                                item.imagesPaths.split(',').map((path: string, index: number) => {
+                                item.imagesPaths?.split(',').map((path: string, index: number) => {
                                     return(
                                     <SwiperSlide key={index}>
                                         <div

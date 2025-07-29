@@ -1,6 +1,7 @@
 
 import axios from "axios";
 import { baseUrl } from "./constants";
+import { TPrice } from "./types";
 // import type { TUser } from "./types";
 
 
@@ -72,4 +73,16 @@ export const submitForumNewData = async (url: string, data: any) => {
 
 export const deleteOrder= async (url: string) => {
     return await axiosMainUrl.delete(url);
+}
+
+export const getAllPrices = async (url: string) => {
+    return await axiosMainUrl.get(url);
+}
+
+export const deletePrice= async (url: string) => {
+    return await axiosMainUrl.delete(url);
+}
+
+export const createPrice = async (url: string, data: TPrice) => {
+    return await axiosMainUrl.post(url, data)
 }
