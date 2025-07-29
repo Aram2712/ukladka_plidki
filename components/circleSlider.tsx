@@ -10,7 +10,6 @@ import useSWR from 'swr';
 import { TService } from '@/types';
 import Image from "next/image";
 import Link from 'next/link';
-import nkar from '../public/image/1.webp'
 
 export default function CircleSlider() {
 
