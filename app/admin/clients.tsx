@@ -6,12 +6,14 @@ import { baseUrl } from '@/constants';
 import useSWR from 'swr';
 import { TUser } from '@/types';
 import { deleteUser } from '../../api';
-import Loading from '@/components/loading';
+// import { useGlobalContext } from '@/context/globalContext';
 
 function AdminClients() {
 
-    const { data, mutate, isLoading } = useSWR(`${baseUrl}/auth/users`, getAllUsers);
-    
+    // const { clients } = useGlobalContext()
+
+    const { data, mutate } = useSWR(`${baseUrl}/auth/users`, getAllUsers);
+
     function formatPhoneNumber(input: string): string {
         const cleaned = input.replace(/\D/g, '')
 
@@ -20,7 +22,6 @@ function AdminClients() {
         }
 
         const code = cleaned.slice(1, 4)
-        
         const part1 = cleaned.slice(4, 7)
         const part2 = cleaned.slice(7, 9)
         const part3 = cleaned.slice(9, 11)
@@ -31,13 +32,12 @@ function AdminClients() {
     const deleteCurrentUser = async (user: TUser) => {
         if (user) {
             const response = await deleteUser(`${baseUrl}/auth/users/${user.id}`);
-            if(response) await mutate();
+            if (response) await mutate();
         }
     }
 
-    return(
+    return (
         <div className='admin-orders-container'>
-            <Loading loading = {isLoading}/> 
             <table className='admin-order-table'>
                 <thead>
                     <tr>
@@ -48,14 +48,14 @@ function AdminClients() {
                 </thead>
                 <tbody>
                     {
-                        data?.data.map((user:TUser, index: number) => (
-                        // clients?.filter(client=>client.role !== 'admin').map((user:TUser, index: number) => (
-                            <tr key = {index}>
+                        data?.data.map((user: TUser, index: number) => (
+                            // clients?.filter(client=>client.role !== 'admin').map((user:TUser, index: number) => (
+                            <tr key={index}>
                                 <td>{user.fullName}</td>
                                 <td>{formatPhoneNumber(user.phoneNumber)}</td>
                                 <td>
-                                    <AiFillDelete 
-                                        style = {{color: 'red', cursor: 'pointer'}}
+                                    <AiFillDelete
+                                        style={{ color: 'red', cursor: 'pointer' }}
                                         title='Удалить'
                                         onClick={() => deleteCurrentUser(user)}
                                     />

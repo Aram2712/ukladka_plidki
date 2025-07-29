@@ -32,24 +32,24 @@ function Loading(props: TProps) {
 
     return (
         <Modal
-            open = { loading }
+            open={loading}
             sx={{
                 backgroundColor: 'rgba(0,0,0,0.8)'
             }}
         >
-            <Box sx = { style }>
+            <Box sx={style}>
                 <ClipLoader
-                    color = { 'white' }
-                    cssOverride = {{
+                    color={'white'}
+                    cssOverride={{
                         display: "block",
                         margin: "0 auto",
                         borderWidth: "5px"
                         // borderColor: "red",
                     }}
-                    aria-label = "Loading Spinner"
-                    data-testid = "loader"
-                    size = { 60 }
-                    speedMultiplier = {0.8}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                    size={60}
+                    speedMultiplier={0.8}
                 />
             </Box>
         </Modal>

@@ -8,10 +8,10 @@ import AdminUsers from './clients';
 import { useGlobalContext } from '@/context/globalContext';
 import { SiMessenger } from "react-icons/si";
 import { useState } from 'react';
-import AdminMessenger from './adminMessenger';
 import { getAllUsers } from '../../api';
 import { baseUrl } from '@/constants';
 import useSWR from 'swr';
+import AdminMessenger from './adminMessenger';
 
 export default function AdminPage() {
 
@@ -21,23 +21,23 @@ export default function AdminPage() {
 
     const { data } = useSWR(`${baseUrl}/auth/users`, getAllUsers);
 
-    return(
+    return (
         <div className='admin-page'>
-            <AdminHeader/>
+            <AdminHeader />
             {
                 activeHeader?.title === "Заявки" ?
-                <AdminOrders/>
-                :
-                activeHeader?.title === "Услуги" ?
-                <AdminServices/>
-                :
-                <AdminUsers/>
+                    <AdminOrders />
+                    :
+                    activeHeader?.title === "Услуги" ?
+                        <AdminServices />
+                        :
+                        <AdminUsers />
             }
-            <SiMessenger className='admin-messenger-icon' onClick={() => setShowMessenger(true)}/>
+            <SiMessenger className='admin-messenger-icon' onClick={() => setShowMessenger(true)} />
             <AdminMessenger
-                showMessenger = {showMessenger}
-                setShowMessenger = {setShowMessenger}
-                users = {data?.data}
+                showMessenger={showMessenger}
+                setShowMessenger={setShowMessenger}
+                users={data?.data}
             />
         </div>
     )
