@@ -87,7 +87,7 @@ export default function AddPrice(props: TProps) {
                     onSubmit={handlesSubmit}
                 >
                     <span className='modal-label-text'>Имя</span>
-                    <input type='text' className='modal-input' value={title} onChange={e => setTitle(e.target.value)} />                 
+                    <input type='text' className='modal-input' value={title} onChange={e => setTitle(e.target.value)} />
                     <span className='modal-label-text'>Цена</span>
                     <input type='text' className='modal-input' value={price} onChange={e => setPrice(e.target.value)} />
                     <input type='submit' className='modal-button' value='Сохранить' />

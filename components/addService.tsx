@@ -88,7 +88,7 @@ export default function AddService(props: TProps) {
             open={showAddService}
         >
             <Box sx={style}>
-                <Loading loading = {isLoading || isMutating}/>
+                <Loading loading={isLoading || isMutating} />
                 <IoMdClose
                     className='close-modal-icon'
                     onClick={close}
