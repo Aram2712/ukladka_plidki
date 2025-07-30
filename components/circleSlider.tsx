@@ -19,7 +19,7 @@ export default function CircleSlider() {
     useEffect(() => {
         if (data) setDisplayServices(data.data.reverse());
     }, [data])
-
+    
     return (
         <div className="circleSliderBox">
             <Swiper
@@ -36,7 +36,7 @@ export default function CircleSlider() {
                             }}
                             style={{
                                 width: 120,
-                                height: 150,
+                                height: 170,
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'flex-start',
@@ -47,7 +47,6 @@ export default function CircleSlider() {
                                 textDecoration:'none'
                             }}
                         >
-
                             <Image
                                 width={105}
                                 height={105}

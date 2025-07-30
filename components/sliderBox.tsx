@@ -53,7 +53,6 @@ export default function SliderBox() {
 
         return 'unknown';
     }
-    console.log(displayServices);
     
     return (
         <div className='sliders-container'>
