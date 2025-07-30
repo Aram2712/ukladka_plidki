@@ -2,7 +2,6 @@
 import '../styles/shadowBox.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { getServices } from '../api';
-import { useEffect, useState } from 'react';
 import { baseUrl, filesPath } from '@/constants';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -12,13 +11,8 @@ import Image from "next/image";
 import Link from 'next/link';
 
 export default function CircleSlider() {
-
-    const [displayServices, setDisplayServices] = useState<TService[] | null>(null);
+;
     const { data } = useSWR(`${baseUrl}/services`, getServices);
-
-    useEffect(() => {
-        if (data) setDisplayServices(data.data.reverse());
-    }, [data])
     
     return (
         <div className="circleSliderBox">
@@ -27,7 +21,7 @@ export default function CircleSlider() {
                 slidesPerView={3}
                 pagination={{ clickable: true }}
             >
-                {displayServices?.map((item: TService) => (
+                {data?.data.map((item: TService) => (
                     <SwiperSlide key={item.id}>
                         <Link
                             href={`/service`}

@@ -5,7 +5,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import Image from "next/image";
 import Comments from '../../components/comments';
 import FooterBox from '../../components/footerBox';
@@ -28,13 +28,8 @@ export default function OtherServices(props: TProps) {
 
     const [selectedGallery, setSelectedGallery] = useState<string[] | null>(null);
     const userInteractedRef = useRef(false);
-    const [displayServices, setDisplayServices] = useState<TService[] | null>(null);
 
     const { data } = useSWR(`${baseUrl}/services`, getServices);
-
-    useEffect(() => {
-        if (data) setDisplayServices(data.data.reverse())
-    }, [data])
 
     function getFileType(filename: string) {
         const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
@@ -53,7 +48,7 @@ export default function OtherServices(props: TProps) {
     return (
         <div className='sliders-container'>
             {
-                displayServices?.map((item: TService, index: number) => (
+                data?.data.map((item: TService, index: number) => (
                     // services.map((item: TService, index: number) => (
                     <div className='service-item-container' key={index}>
                         <Swiper

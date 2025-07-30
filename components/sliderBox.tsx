@@ -16,18 +16,15 @@ import Link from 'next/link';
 import type { TService } from '../types';
 import VideoPlayer from './video';
 import BigSlider from './bigSlider';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 
 export default function SliderBox() {
 
     // const { services } = useGlobalContext();
     const [selectedGallery, setSelectedGallery] = useState<string[] | null>(null);
     const userInteractedRef = useRef(false);
-    const [displayServices, setDisplayServices] = useState<TService[] | null>(null);
 
     const { data } = useSWR(`${baseUrl}/services`, getServices);
-
-   
 
     // const media = [
     //     'https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668617_w-819x1024-1.webp',
@@ -35,10 +32,6 @@ export default function SliderBox() {
     //     'https://ukladka-plitki.ru/wp-content/uploads/photo_5470042268145668618_w-819x1024-1.webp',
     //     'https://ukladka-plitki.ru/wp-content/uploads/1713899046-10.mp4'
     // ]
-
-    useEffect(() => {
-        if (data) setDisplayServices(data.data.reverse());
-    }, [data])
 
     function getFileType(filename: string) {
         const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
@@ -57,7 +50,7 @@ export default function SliderBox() {
     return (
         <div className='sliders-container'>
             {
-                displayServices?.map((item: TService, index: number) => (
+                data?.data.map((item: TService, index: number) => (
                     // services.map((item: TService, index: number) => (
                     <div className='service-item-container' key={index}>
                         <Swiper
