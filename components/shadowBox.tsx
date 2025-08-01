@@ -49,18 +49,7 @@ export default function ShadowBox() {
                         <a href="tel:+79119296767" target='_self' className='main-page-button call-button'>Позвонить</a>
                         <a href='https://wa.me/+79119296767' target='_blank' className='main-page-button whatsapp-button'>WhatsApp</a>
                     </span>
-                    <a
-                        href='https://t.me/c/2445053829/3'
-                        className='online-request-button'
-                        style={{
-                            textDecoration: 'none',
-                            backgroundColor: '#24A1DE',
-                            color: 'white',
-                            border: 'none',
-                        }}
-                    >
-                        Тelegram
-                    </a>
+
                     <button
                         className='online-request-button'
                         onClick={() => setShowOrder(true)}
@@ -148,6 +137,18 @@ export default function ShadowBox() {
                     >
                         Оставить заявку онлайн
                     </button>
+                    <a
+                        href='https://t.me/c/2445053829/3'
+                        className='mobole-request-button'
+                        style={{
+                            textDecoration: 'none',
+                            backgroundColor: '#24A1DE',
+                            color: 'white',
+                            border: 'none',
+                        }}
+                    >
+                        Тelegram
+                    </a>
                 </div>
                 <CircleSlider />
             </div>

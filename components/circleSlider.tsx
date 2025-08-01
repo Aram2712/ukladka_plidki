@@ -3,17 +3,17 @@ import '../styles/shadowBox.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { getServices } from '../api';
 import { baseUrl, filesPath } from '@/constants';
+import { TService } from '@/types';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import useSWR from 'swr';
-import { TService } from '@/types';
 import Image from "next/image";
 import Link from 'next/link';
 
 export default function CircleSlider() {
-;
+
     const { data } = useSWR(`${baseUrl}/services`, getServices);
-    
+
     return (
         <div className="circleSliderBox">
             <Swiper
@@ -29,7 +29,7 @@ export default function CircleSlider() {
                                 localStorage.setItem('currentService', JSON.stringify(item))
                             }}
                             style={{
-                                width: 120,
+                                width: 115,
                                 height: 170,
                                 display: 'flex',
                                 flexDirection: 'column',
@@ -38,12 +38,12 @@ export default function CircleSlider() {
                                 overflow: 'hidden',
                                 color: 'white',
                                 userSelect: 'none',
-                                textDecoration:'none'
+                                textDecoration: 'none'
                             }}
                         >
                             <Image
-                                width={105}
-                                height={105}
+                                width={100}
+                                height={100}
                                 src={`${filesPath}/${item.imagesPaths?.split(',')[0]}`}
                                 // src={nkar}
                                 alt='carusel image'
