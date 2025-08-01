@@ -23,7 +23,7 @@ export default function Navbar() {
     const [showSignup, setShowSignup] = useState<boolean>(false);
     const [showUserWindow, setShowUserWindow] = useState<boolean>(false);
     const [showMessenger, setShowMessenger] = useState<boolean>(false);
-    const [showMobileMenu, setShowMobileMenu] = useState(false)
+    const [showMobileMenu, setShowMobileMenu] = useState(false);
     const [showForum, setShowForum] = useState<boolean>(false);
 
     const { trigger } = useSWRMutation(

@@ -1,14 +1,14 @@
 
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import Loading from '../components/loading';
+import useSWRMutation from 'swr/mutation';
+import useSWR from 'swr';
 import { IoMdClose } from "react-icons/io";
 import { useState } from 'react';
 import { MuiFileInput } from 'mui-file-input'
 import { createService, getServices } from '../api';
 import { baseUrl } from '@/constants';
-import Loading from '../components/loading';
-import useSWRMutation from 'swr/mutation';
-import useSWR from 'swr';
 
 const style = {
     position: 'absolute',
@@ -41,7 +41,7 @@ export default function AddService(props: TProps) {
     const [title, setTitle] = useState<string>('');
     const [header, setHeader] = useState('');
     const [description, setDescription] = useState<string>('');
-    const [price, setPrice] = useState<string>('')
+    const [price, setPrice] = useState<string>('');
 
     const { mutate, isLoading } = useSWR(`${baseUrl}/services`, getServices);
 

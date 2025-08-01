@@ -86,3 +86,7 @@ export const deletePrice= async (url: string) => {
 export const createPrice = async (url: string, data: TPrice) => {
     return await axiosMainUrl.post(url, data)
 }
+
+export const readNews = async (url: string) => {
+    return await axiosMainUrl.get(url);
+}
