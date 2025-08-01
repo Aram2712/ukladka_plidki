@@ -5,12 +5,16 @@ import '../styles/navbar.css';
 import { useEffect, useState } from 'react';
 import { useGlobalContext } from '@/context/globalContext';
 import { SlMenu } from "react-icons/sl";
+import useSWRMutation from 'swr/mutation';
+import { baseUrl } from '@/constants';
+import { signin } from '../api'
 import Signin from './signin';
 import SignUp from './signup';
 import UserWindow from './userWindow';
 import Messenger from './messenger';
 import MobileUserWindow from './mobileUserWindow';
 import Forum from './forum';
+import { TUser } from '@/types';
 
 export default function Navbar() {
 
@@ -22,12 +26,40 @@ export default function Navbar() {
     const [showMobileMenu, setShowMobileMenu] = useState(false)
     const [showForum, setShowForum] = useState<boolean>(false);
 
-    useEffect(() => {
+    const { trigger } = useSWRMutation(
+        `${baseUrl}/auth/login`,
+        async (url, { arg }: { arg: { phoneNumber: string, password: string } }) => signin(url, arg)
+    );
+
+    const getUser = async () => {
+
         const userData = localStorage.getItem('plidka_user');
+
         if (userData) {
-            setUser(JSON.parse(userData));
+
+            const loginedUser: TUser = JSON.parse(userData);
+            const data = {
+                phoneNumber: loginedUser.phoneNumber,
+                password: loginedUser.password,
+            }
+
+            try {
+                const result = await trigger(data);
+                if (result.data) {
+                    localStorage.setItem('plidka_user', JSON.stringify(result.data));
+                    setUser(result.data);
+                }
+            }
+            catch (err) {
+                console.error(err);
+            }
         }
-        else setUser(null)
+
+        else setUser(null);
+    }
+
+    useEffect(() => {
+        getUser();
     }, [])
 
     return (

@@ -51,7 +51,7 @@ export default function Signin(props: TProps) {
         setPassword('');
         setError(false)
     }
-
+    
     const { trigger, isMutating } = useSWRMutation(
             `${baseUrl}/auth/login`,
             async (url, { arg }: { arg: { phoneNumber: string, password: string } }) => signin(url, arg)

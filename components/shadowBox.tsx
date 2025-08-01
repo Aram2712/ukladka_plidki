@@ -6,12 +6,15 @@ import { GrUserExpert } from "react-icons/gr";
 import { TbPuzzleFilled } from "react-icons/tb";
 import SendOrder from './sendOrder';
 import { useState } from 'react';
-import CircleSlider from '../components/circleSlider'
+import CircleSlider from '../components/circleSlider';
+import { useGlobalContext } from '@/context/globalContext';
 
 export default function ShadowBox() {
 
     const [showOrder, setShowOrder] = useState<boolean>(false);
 
+    const { user } = useGlobalContext();
+    console.log(user)
     return(
         <div className='shadow-box-container'>
             <div className='shadow-box-content'>
@@ -34,11 +37,15 @@ export default function ShadowBox() {
             </div>
             <div className='mobile-main-container'>
                 <div className='gor-image-container'>
+                    <span className='newsBox'></span>
                     <Image
                         src={'/image/plitochnik-gor-mkrtchyan.webp'}
                         width={100}
                         height={100}
                         alt={'Gor Avatar'}
+                        style={{
+                            borderRadius: '50%'
+                        }}
                     />
                 </div>
                 <div className='specalization-data-box'>

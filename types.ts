@@ -11,7 +11,8 @@ export type TUser = {
     fullName: string,
     phoneNumber: string,
     password: string,
-    role: string
+    role: string,
+    isLookedLastNews?: boolean
 }
 
 export type TMessage = {
