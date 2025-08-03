@@ -12,7 +12,7 @@ import FooterBox from '../../components/footerBox';
 import { baseUrl, filesPath } from '@/constants';
 import { getServices } from '../../api';
 import useSWR from 'swr';
-import type { TService } from '../../types'
+import type { TService } from '../../types';
 import VideoPlayer from '../../components/video';
 import BigSlider from '@/components/bigSlider';
 

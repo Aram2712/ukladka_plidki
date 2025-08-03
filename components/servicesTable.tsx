@@ -1,7 +1,8 @@
 'use client'
 import '../styles/services.css';
 import { IoCall } from "react-icons/io5";
-import { BsWhatsapp } from "react-icons/bs"
+import { BsWhatsapp } from "react-icons/bs";
+import { FaTelegramPlane } from "react-icons/fa";
 import type { TPrice } from '../types';
 import { baseUrl } from '@/constants';
 import { getAllPrices } from '../api';
@@ -34,6 +35,9 @@ export default function ServicesTable() {
                 </a>
                 <a href='https://wa.me/+79119296767' target='_blank' className='services-page-buttons'>
                     <BsWhatsapp/>
+                </a>
+                <a href='https://t.me/c/2445053829/3' target='_blank' className='services-page-buttons'>
+                    <FaTelegramPlane />
                 </a>
             </div>
             <div className='services-page-footer-box'>

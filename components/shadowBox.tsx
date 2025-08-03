@@ -12,7 +12,8 @@ import useSWR from 'swr';
 import CircleSlider from '../components/circleSlider';
 import { useGlobalContext } from '@/context/globalContext';
 import { useRouter } from 'next/navigation';
-import { TbNewSection } from "react-icons/tb";
+// import { TbNewSection } from "react-icons/tb";
+import { FaPlus } from "react-icons/fa6";
 
 export default function ShadowBox() {
 
@@ -62,17 +63,23 @@ export default function ShadowBox() {
             </div>
             <div className='mobile-main-container'>
                 <div className='gor-image-container'>
-                    <span
-                        className='newsBox'
-                        onClick={readAsNews}
-                    >
-                        <TbNewSection
-                            style={{
-                                color: 'white',
-                                fontSize: '20px'
-                            }}
-                        />
-                    </span>
+                    {
+                        user?.isLookedLastNews ?
+                            <span
+                                className='newsBox'
+                                onClick={readAsNews}
+                            >
+                                <FaPlus
+                                    style={{
+                                        color: 'black',
+                                        fontSize: '16px'
+                                    }}
+                                />
+                            </span>
+                            :
+                            null
+                    }
+
                     <Image
                         src={'/image/plitochnik-gor-mkrtchyan.webp'}
                         width={100}
@@ -131,24 +138,24 @@ export default function ShadowBox() {
                 <div className='mobile-version-button'>
                     <a href="tel:+79119296767" target='_self' className='mobile-call-button'>Позвонить</a>
                     <a href='https://wa.me/+79119296767' target='_blank' className='mobile-call-button'>WhatsApp</a>
+                    <a
+                        href='https://t.me/c/2445053829/3'
+                        className='mobole-request-button'
+                        style={{
+
+                            backgroundColor: 'black',
+                            color: 'white',
+                            border: '1px solid white'
+                        }}
+                    >
+                        Тelegram
+                    </a>
                     <button
                         className='mobole-request-button'
                         onClick={() => setShowOrder(true)}
                     >
                         Оставить заявку онлайн
                     </button>
-                    <a
-                        href='https://t.me/c/2445053829/3'
-                        className='mobole-request-button'
-                        style={{
-                            textDecoration: 'none',
-                            backgroundColor: '#24A1DE',
-                            color: 'white',
-                            border: 'none',
-                        }}
-                    >
-                        Тelegram
-                    </a>
                 </div>
                 <CircleSlider />
             </div>

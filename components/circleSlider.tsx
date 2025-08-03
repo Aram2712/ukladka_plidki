@@ -17,12 +17,14 @@ export default function CircleSlider() {
     return (
         <div className="circleSliderBox">
             <Swiper
-                spaceBetween={20}
+                // spaceBetween={20}
                 slidesPerView={3}
                 pagination={{ clickable: true }}
             >
                 {data?.data.map((item: TService) => (
-                    <SwiperSlide key={item.id}>
+                    <SwiperSlide 
+                        key={item.id} 
+                    >
                         <Link
                             href={`/service`}
                             onClick={() => {
@@ -42,8 +44,8 @@ export default function CircleSlider() {
                             }}
                         >
                             <Image
-                                width={100}
-                                height={100}
+                                width={105}
+                                height={105}
                                 src={`${filesPath}/${item.imagesPaths?.split(',')[0]}`}
                                 // src={nkar}
                                 alt='carusel image'
