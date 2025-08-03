@@ -68,7 +68,8 @@ export default function SignUp(props: TProps) {
             fullName,
             phoneNumber,
             password,
-            role: 'user'
+            role: 'user',
+            isLookedLastNews: true
         }
         try {
             const result = await trigger(data);
