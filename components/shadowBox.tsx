@@ -31,7 +31,7 @@ export default function ShadowBox() {
             localStorage.setItem('currentService', JSON.stringify(item));
             router.push('/service');
             if (user) {
-                await readNews(`${baseUrl}/news/${user?.id}`);
+                await readNews(`${baseUrl}/services/news/${user?.id}`);
                 setUser({
                     ...user,
                     isLookedLastNews: false
